@@ -1,6 +1,6 @@
 import { Header } from "./components/Header";
 import { Sidebar } from "./components/Sidebar";
-import { Post } from "./components/Post";
+import { Content, Post } from "./components/Post";
 
 import './global.css';
 import styles from './App.module.css';
@@ -52,7 +52,7 @@ export function App() {
               <Post
                 key={post.id}
                 author={post.author}
-                content={post.content}
+                content={(post.content as Content[])}
                 publishedAt={post.publishedAt}
               />
             )

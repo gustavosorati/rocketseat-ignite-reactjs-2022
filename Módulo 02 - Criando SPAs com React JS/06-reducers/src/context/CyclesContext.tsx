@@ -55,16 +55,17 @@ export function CyclesContextProvider({
       startDate: new Date(),
     }
 
-    dispatch(addNewCycleAction)
+    dispatch(addNewCycleAction(newCycle))
     setAmountSecondsPassed(0)
   }
 
   function interruptCurrentCycle() {
-    dispatch(interruptCurrentCycleAction)
+    console.log('interromper')
+    dispatch(interruptCurrentCycleAction())
   }
 
   function markCurrentCycleAsFineshed() {
-    dispatch(markCurrentCycleAsFineshedAction)
+    dispatch(markCurrentCycleAsFineshedAction())
   }
 
   function setSecondsPassed(seconds: number) {

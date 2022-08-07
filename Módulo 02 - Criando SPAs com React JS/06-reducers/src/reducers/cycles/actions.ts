@@ -13,7 +13,7 @@ export function addNewCycleAction(newCycle: ICycle) {
   }
 }
 
-export function interruptCurrentCycleAction(activeCycleId: number) {
+export function interruptCurrentCycleAction() {
   return {
     type: ActionTypes.INTERRUPT_CURRENT_CYCLE,
   }

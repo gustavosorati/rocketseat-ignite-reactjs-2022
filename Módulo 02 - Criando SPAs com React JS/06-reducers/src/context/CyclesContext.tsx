@@ -12,7 +12,7 @@ import {
   interruptCurrentCycleAction,
   markCurrentCycleAsFineshedAction,
 } from '../reducers/cycles/actions'
-import { cyclesReducer, ICycle } from '../reducers/cycles/reducer'
+import { ICycle, cyclesReducer } from '../reducers/cycles/reducer'
 
 interface CreateCycleData {
   task: string
@@ -24,30 +24,28 @@ interface CyclesContextType {
   activeCycle: ICycle | undefined
   activeCycleId: string | null
   amountSecondsPassed: number
-  markCurrentCycleAsFineshed: () => void
+  markCurrentCycleAsFinished: () => void
   setSecondsPassed: (seconds: number) => void
   createNewCycle: (data: CreateCycleData) => void
   interruptCurrentCycle: () => void
 }
 
-export const CyclesContext = createContext<CyclesContextType>(
-  {} as CyclesContextType,
-)
+export const CyclesContext = createContext({} as CyclesContextType)
 
-interface CyclesContextProviderProsp {
+interface CyclesContextProviderProps {
   children: ReactNode
 }
 
 export function CyclesContextProvider({
   children,
-}: CyclesContextProviderProsp) {
+}: CyclesContextProviderProps) {
   const [cyclesState, dispatch] = useReducer(
     cyclesReducer,
     {
       cycles: [],
       activeCycleId: null,
     },
-    () => {
+    (state) => {
       const storedStateAsJSON = localStorage.getItem(
         '@ignite-timer:cycles-state-1.0.0',
       )
@@ -55,6 +53,8 @@ export function CyclesContextProvider({
       if (storedStateAsJSON) {
         return JSON.parse(storedStateAsJSON)
       }
+
+      return state
     },
   )
 
@@ -75,6 +75,14 @@ export function CyclesContextProvider({
     localStorage.setItem('@ignite-timer:cycles-state-1.0.0', stateJSON)
   }, [cyclesState])
 
+  function setSecondsPassed(seconds: number) {
+    setAmountSecondsPassed(seconds)
+  }
+
+  function markCurrentCycleAsFinished() {
+    dispatch(markCurrentCycleAsFineshedAction())
+  }
+
   function createNewCycle(data: CreateCycleData) {
     const id = String(new Date().getTime())
 
@@ -86,20 +94,12 @@ export function CyclesContextProvider({
     }
 
     dispatch(addNewCycleAction(newCycle))
+
     setAmountSecondsPassed(0)
   }
 
   function interruptCurrentCycle() {
-    console.log('interromper')
     dispatch(interruptCurrentCycleAction())
-  }
-
-  function markCurrentCycleAsFineshed() {
-    dispatch(markCurrentCycleAsFineshedAction())
-  }
-
-  function setSecondsPassed(seconds: number) {
-    setAmountSecondsPassed(seconds)
   }
 
   return (
@@ -108,8 +108,8 @@ export function CyclesContextProvider({
         cycles,
         activeCycle,
         activeCycleId,
+        markCurrentCycleAsFinished,
         amountSecondsPassed,
-        markCurrentCycleAsFineshed,
         setSecondsPassed,
         createNewCycle,
         interruptCurrentCycle,

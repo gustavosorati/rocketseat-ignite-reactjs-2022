@@ -10,7 +10,7 @@ O curso aborda diversos conceitos estruturados entre os módulos:
 
 - Módulo 1: Fundamentos de ReactJS
   <br />
-  [![Ignite Rocketseat](https://img.shields.io/badge/Ignite_Feed-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://i.im.ge/2022/09/04/Oc1CmM.rocketseat-reactjs.png)
+  [![Ignite Rocketseat](https://img.shields.io/badge/Ignite_Feed-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ignews-feed-fbxeepmp7-gustavosorati.vercel.app/)
 
   - Estrutura de um projeto React
   - Build Tool Vite

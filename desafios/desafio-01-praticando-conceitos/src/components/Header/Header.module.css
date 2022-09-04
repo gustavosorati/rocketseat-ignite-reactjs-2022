@@ -1,0 +1,98 @@
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 200px;
+  background-color: var(--gray-700);
+  margin-bottom: 3rem;
+}
+
+.header > div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (max-width: 768px){
+  .header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 6rem;
+  }
+
+  .header > div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+}
+
+.header img {
+  width: 22px;
+  height: 36px;
+}
+
+.header strong {
+  color: var(--blue);
+  font-size: 2.5rem;
+  font-weight: 900;
+}
+
+.header strong span {
+  color: var(--purpleDark);
+}
+
+/* Input of Tasks */
+.form {
+  display: flex;
+  align-items: center;
+  max-width: 800px;
+  width: 100%;
+  justify-content: center;
+  gap: 0.5rem;
+
+  position: absolute;
+  bottom: -25px;
+
+  padding: 0 2rem;
+}
+
+@media (max-width: 768px){
+  .header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form {
+    flex-direction: column;
+    position: relative;
+    bottom: -80px;
+  }
+}
+
+
+.input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  border: 2px solid var(--gray-700);
+  border-radius: 8px;
+
+  padding: 1rem;
+  background-color: var(--gray-500);
+  color: var(--gray-100);
+}
+
+.input:focus {
+  outline: none;
+  border: 2px solid var(--purple);
+}
+
+.input:placeholder {
+  color: var(--gray-300);
+}

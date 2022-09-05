@@ -1,6 +1,6 @@
 import { SummaryCard, SummaryContainer } from "./styles";
 import { ArrowCircleUp, ArrowCircleDown, CurrencyDollar } from 'phosphor-react'
-import logo from '../../assets/logo.svg'
+
 
 
 export function Summary() {

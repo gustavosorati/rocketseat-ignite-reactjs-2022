@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 
 export const SummaryContainer = styled.section`
@@ -12,9 +12,33 @@ export const SummaryContainer = styled.section`
     gap: 2rem;
 
     margin-top: -5rem;
+`
+interface SummaryCardProps {
+    variant?: 'green'
+}
 
-    background-color: ${props => props.theme["gray-900"]};
-    padding: 2.5rem 0 7.5rem;
+export const SummaryCard = styled.div<SummaryCardProps>`
+    background-color: ${props => props.theme["gray-600"]};
+    border-radius: 6px;
+    padding: 2rem;
+
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: ${props => props.theme["gray-300"]};
+    }
+
+    strong {
+        display: block;
+        margin-top: 1rem;
+        font-size: 2rem;
+    }
+
+    ${props => props.variant === 'green' && css`
+        background-color: ${props.theme["green-700"]};
+    `}
+
 `
 
 export const HeaderContent = styled.div`

@@ -49,6 +49,7 @@ export const Content = styled(Dialog.Content)`
             padding: 0 1.25rem;
             border-radius: 6px;
             margin-top: 1.5rem;
+            cursor: pointer;
 
             &:hover {
                 background-color: ${props => props.theme["gray-700"]};

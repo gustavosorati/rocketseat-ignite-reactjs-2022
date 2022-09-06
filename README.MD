@@ -2,7 +2,7 @@
 
 Projetos desenvolvidos no curso ReactJS da Rocketseat Ignite 2022.
 
-![Ignite Rocketseat](https://i.im.ge/2022/09/04/Oc1CmM.rocketseat-reactjs.png)
+![Ignite Rocketseat](https://repository-images.githubusercontent.com/344824358/0ff8ac80-8026-11eb-8ed1-e8b77764fbcd)
 
 ## Aprendizados
 

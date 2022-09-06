@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Header } from "../../components/Header/indes";
-import { Summary } from "../../components/Summary/indes";
+import { Summary } from "../../components/Summary";
 import { TransactionsContext } from "../../contexts/TransactionsContext";
 import { dateFormatter, priceFormatter } from "../../utils/formatter";
 import { SearchForm } from "./components/SearchForm";

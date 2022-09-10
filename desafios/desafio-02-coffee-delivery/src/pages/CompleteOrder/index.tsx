@@ -17,15 +17,11 @@ const checkoutValidationSchema = zod.object({
   district: zod.string(),
   city: zod.string(),
   state: zod.string(),
-  paymentMethod: zod.enum(['credit', 'debit', 'money']),
-  // paymentMethod: zod.nativeEnum(
-  //   { credit: 'credit', debit: 'debit', money: 'money' },
-  //   {
-  //     errorMap: () => {
-  //       return { message: 'Informe o método de pagamento' }
-  //     },
-  //   },
-  // ),
+  paymentMethod: zod.enum(['credit', 'debit', 'money'], {
+    errorMap: (issue, ctx) => {
+      return { message: 'Você deve selecionar um método de pagamento' }
+    },
+  }),
 })
 
 type ConfirmOrderData = zod.infer<typeof checkoutValidationSchema>

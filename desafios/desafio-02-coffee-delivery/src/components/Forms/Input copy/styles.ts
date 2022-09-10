@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
-export const InputStyledContainer = styled.div`
+export const InputContainer = styled.div`
   position: relative;
   display: flex;
 `
 
-export const Input = styled.input`
+export const InputComponent = styled.input`
   width: 100%;
   display: flex;
   align-items: center;

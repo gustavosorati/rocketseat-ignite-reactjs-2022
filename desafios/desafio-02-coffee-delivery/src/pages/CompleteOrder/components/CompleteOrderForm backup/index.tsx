@@ -3,16 +3,20 @@ import { useTheme } from 'styled-components'
 import { StyledIcon } from '../../../../components/_Helpers/StyledIcon'
 import { CheckoutAddresForm } from './CheckoutAddresForm'
 import { CheckoutPaymentForm } from './CheckoutPaymentForm'
-import { CheckOrderContainer, Title, Wrapper } from './styles'
+import {
+  CompleteOrderFormContainer,
+  Title,
+  FormSectionContainer,
+} from './styles'
 
-export function CheckOrder() {
+export function CompleteOrderForm() {
   const theme = useTheme()
 
   return (
-    <CheckOrderContainer className="CheckoutContainer">
+    <CompleteOrderFormContainer className="CheckoutContainer">
       <Title>Complete o seu pedido</Title>
 
-      <Wrapper>
+      <FormSectionContainer>
         <StyledIcon
           icon={<MapPinLine weight="regular" size={22} />}
           iconColor={theme.yellowDark}
@@ -21,9 +25,9 @@ export function CheckOrder() {
         />
 
         <CheckoutAddresForm />
-      </Wrapper>
+      </FormSectionContainer>
 
-      <Wrapper>
+      <FormSectionContainer>
         <StyledIcon
           icon={<CurrencyDollar weight="regular" size={22} />}
           iconColor={theme.purple}
@@ -32,7 +36,7 @@ export function CheckOrder() {
         />
 
         <CheckoutPaymentForm />
-      </Wrapper>
-    </CheckOrderContainer>
+      </FormSectionContainer>
+    </CompleteOrderFormContainer>
   )
 }

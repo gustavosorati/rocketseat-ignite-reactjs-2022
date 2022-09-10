@@ -1,9 +1,6 @@
 import styled from 'styled-components'
 
-export const CheckCoffeeContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+export const CheckoutCoffeesAmountContainer = styled.div`
   width: 100%;
 `
 
@@ -15,7 +12,7 @@ export const Title = styled.h1`
   margin-bottom: 1rem;
 `
 
-export const Wrapper = styled.div`
+export const CoffeListContainer = styled.div`
   background-color: ${({ theme }) => theme.baseCard};
   padding: 2.5rem;
 
@@ -72,7 +69,7 @@ export const ProductPrice = styled.strong`
   justify-content: end;
 `
 
-export const AllCostContainer = styled.div`
+export const CostsContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -93,7 +90,7 @@ export const AllCostContainer = styled.div`
   }
 `
 
-export const Amount = styled.div`
+export const AmountPriceItens = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -104,7 +101,7 @@ export const Amount = styled.div`
   }
 `
 
-export const Button = styled.button`
+export const BtnConfirmOrder = styled.button`
   background-color: ${({ theme }) => theme.yellow};
   border: 0;
   border-radius: 6px;
@@ -115,4 +112,8 @@ export const Button = styled.button`
   padding: 1rem;
 
   cursor: pointer;
+
+  &:disabled {
+    opacity: 0.7;
+  }
 `

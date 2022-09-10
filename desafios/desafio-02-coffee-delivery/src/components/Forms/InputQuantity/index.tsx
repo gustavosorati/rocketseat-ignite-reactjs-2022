@@ -15,13 +15,13 @@ export function InputQuantity({
   return (
     <InputQuantityContainer>
       <Button onClick={onDecrease}>
-        <Minus weight="bold" size={14} />
+        <Minus weight="fill" size={14} />
       </Button>
 
       <input value={quantity} readOnly />
 
       <Button type="button" onClick={onIncrease}>
-        <Plus weight="bold" size={14} />
+        <Plus weight="fill" size={14} />
       </Button>
     </InputQuantityContainer>
   )

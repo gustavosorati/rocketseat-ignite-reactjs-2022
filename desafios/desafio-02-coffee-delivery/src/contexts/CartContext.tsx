@@ -1,29 +1,17 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useContext, useState } from 'react'
+import { Coffee } from '../pages/Home/components/CoffesList/CoffeeCard'
 
-interface ICoffee {
-  id: number
-  tags: string[]
-  title: string
-  description: string
-  image: string
-  price: number
-}
-
-interface ICart {
-  id: number
-  tags: string[]
-  title: string
-  description: string
-  image: string
+interface ICartItems extends Coffee {
   quantity: number
-  price: number
 }
 
 interface ICartContext {
-  cart: ICart[]
-  addProduct: (coffee: ICoffee, quantity: number) => void
+  cartItems: ICartItems[]
+  cartQuantity: number
+  addCoffee: (coffee: Coffee, quantity: number) => void
   deleteProduct: (id: number) => void
   updateQuantity: (id: number, amount: number) => void
+  cleanCart: () => void
 }
 
 export const CartContext = createContext<ICartContext>({} as ICartContext)
@@ -33,69 +21,78 @@ interface CartProviderProps {
 }
 
 export function CartProvider({ children }: CartProviderProps) {
-  const [cart, setCart] = useState<ICart[]>([])
+  const [cartItems, setCartItems] = useState<ICartItems[]>([])
+  const cartQuantity = cartItems.length
 
-  function addProduct(coffee: ICoffee, quantity: number) {
-    const coffeeAlreadyExists = cart.find((c) => c.id === coffee.id)
+  function addCoffee(coffee: Coffee, quantity: number) {
+    const coffeeAlreadyExists = cartItems.find((c) => c.id === coffee.id)
 
     if (coffeeAlreadyExists) {
-      const newCoffeeProducts = cart.map((c) => {
-        if (c.id === coffee.id) {
+      const newCoffeeProducts = cartItems.map((cartItem) => {
+        if (cartItem.id === coffee.id) {
           console.log('encontrou')
-          c.quantity = quantity + c.quantity
+          cartItem.quantity = quantity + cartItem.quantity
         }
 
-        return c
+        return cartItem
       })
 
-      setCart(newCoffeeProducts)
+      setCartItems(newCoffeeProducts)
     } else {
-      setCart((state) => [...state, { ...coffee, quantity }])
+      setCartItems((state) => [...state, { ...coffee, quantity }])
     }
   }
 
   function deleteProduct(id: number) {
-    const coffeeAlreadyExists = cart.find((c) => c.id === id)
+    const coffeeAlreadyExists = cartItems.find((cartItem) => cartItem.id === id)
 
     if (coffeeAlreadyExists) {
-      const updatedCoffees = cart.filter((coffee) => coffee.id !== id)
+      const updatedCoffees = cartItems.filter((coffee) => coffee.id !== id)
 
-      setCart(updatedCoffees)
+      setCartItems(updatedCoffees)
     }
   }
 
   function updateQuantity(id: number, amount: number) {
-    const coffeeExists = cart.find((coffee) => coffee.id === id)
+    const coffeeExists = cartItems.find((cartItem) => cartItem.id === id)
 
-    if (coffeeExists?.quantity === 1) {
+    if (coffeeExists?.quantity === 1 && amount === -1) {
       deleteProduct(id)
     } else {
-      const updatedCoffeeList = cart.map((coffee) => {
-        if (coffee.id === id) {
-          if (coffee.quantity === 1) {
-            deleteProduct(id)
-          } else {
-            coffee.quantity = coffee.quantity + amount
-          }
+      const updatedCoffeeList = cartItems.map((cartItem) => {
+        if (cartItem.id === id) {
+          cartItem.quantity = cartItem.quantity + amount
         }
 
-        return coffee
+        return cartItem
       })
 
-      setCart(updatedCoffeeList)
+      setCartItems(updatedCoffeeList)
     }
+  }
+
+  function cleanCart() {
+    setCartItems([])
   }
 
   return (
     <CartContext.Provider
       value={{
-        cart,
-        addProduct,
+        cartItems,
+        cartQuantity,
+        addCoffee,
         deleteProduct,
         updateQuantity,
+        cleanCart,
       }}
     >
       {children}
     </CartContext.Provider>
   )
+}
+
+export function useCart() {
+  const context = useContext(CartContext)
+
+  return context
 }

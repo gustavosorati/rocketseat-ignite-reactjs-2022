@@ -18,9 +18,7 @@ export function Success() {
             icon={<MapPin weight="fill" size={20} />}
             iconBg={theme.purple}
             iconColor={theme.white}
-            subText={
-              'Entrega em Rua João Daniel Martinelli, 102 Farrapos - Porto Alegre, RS'
-            }
+            text="Entrega em Rua João Daniel Martinelli, 102Farrapos - Porto Alegre, RS"
           />
           <StyledIcon
             icon={<Timer weight="fill" size={20} />}

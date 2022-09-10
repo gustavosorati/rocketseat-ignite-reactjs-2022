@@ -1,32 +1,22 @@
 import {
-  AllCostContainer,
-  Amount,
-  Button,
-  CheckCoffeeContainer,
+  CostsContainer,
+  AmountPriceItens,
+  BtnConfirmOrder,
+  CheckoutCoffeesAmountContainer,
   ProductContainer,
   ProductDescription,
   ProductPrice,
   Title,
-  Wrapper,
+  CoffeListContainer,
 } from './styles'
 
 import americano from '../../../../assets/coffees/americano.png'
-import { useContext } from 'react'
-import { CartContext } from '../../../../contexts/CartContext'
+import { useCart } from '../../../../contexts/CartContext'
 import { BtnDelete } from '../../../../components/Forms/BtnDelete'
 import { InputQuantity } from '../../../../components/Forms/InputQuantity'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { useFormContext } from 'react-hook-form'
 
-export function CheckCoffee() {
-  const { cart, updateQuantity, deleteProduct } = useContext(CartContext)
-  const { handleSubmit } = useFormContext()
-  const natigate = useNavigate()
-  const location = useLocation()
-
-  function handlepurchaseConfirm() {
-    natigate(`${location.pathname}/success`)
-  }
+export function CheckoutCoffeesAmount() {
+  const { cartItems, updateQuantity, deleteProduct } = useCart()
 
   function handleDecrease(coffeeId: number) {
     updateQuantity(coffeeId, -1)
@@ -43,18 +33,18 @@ export function CheckCoffee() {
     }).format(value)
   }
 
-  const totalCoffees = cart.reduce((acc, cur) => {
+  const totalCoffees = cartItems.reduce((acc, cur) => {
     return (acc += cur.quantity * cur.price)
   }, 0)
 
   const total = totalCoffees + 3.5
 
   return (
-    <CheckCoffeeContainer className="checkout-coffee-container">
+    <CheckoutCoffeesAmountContainer className="checkout-coffee-container">
       <Title>Cafés selecionados</Title>
 
-      <Wrapper>
-        {cart.map((coffee) => {
+      <CoffeListContainer>
+        {cartItems.map((coffee) => {
           return (
             <ProductContainer key={coffee.id}>
               <img src={americano} alt="" />
@@ -79,9 +69,7 @@ export function CheckCoffee() {
           )
         })}
 
-        {/* ------ */}
-
-        <AllCostContainer>
+        <CostsContainer>
           <div>
             <p>Total de itens</p>
             <span>{numberFormat(totalCoffees)}</span>
@@ -92,16 +80,16 @@ export function CheckCoffee() {
             <span>R$ 3,50</span>
           </div>
 
-          <Amount>
+          <AmountPriceItens>
             <strong>Total de itens</strong>
             <strong>{numberFormat(total)}</strong>
-          </Amount>
-        </AllCostContainer>
+          </AmountPriceItens>
+        </CostsContainer>
 
-        <Button type="submit" onClick={handlepurchaseConfirm}>
+        <BtnConfirmOrder type="submit" disabled={cartItems.length <= 0}>
           Confirmar Pedido
-        </Button>
-      </Wrapper>
-    </CheckCoffeeContainer>
+        </BtnConfirmOrder>
+      </CoffeListContainer>
+    </CheckoutCoffeesAmountContainer>
   )
 }

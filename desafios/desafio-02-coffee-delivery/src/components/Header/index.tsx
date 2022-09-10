@@ -1,6 +1,5 @@
-import { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { CartContext } from '../../contexts/CartContext'
+import { useCart } from '../../contexts/CartContext'
 
 import { MapPin, ShoppingCart } from 'phosphor-react'
 import logo from '../../assets/logo.svg'
@@ -13,9 +12,7 @@ import {
 } from './styles'
 
 export function Header() {
-  const { cart } = useContext(CartContext)
-
-  const amountProducts = cart?.length
+  const { cartQuantity } = useCart()
 
   return (
     <HeaderContainer>
@@ -30,11 +27,11 @@ export function Header() {
             Orlândia, SP
           </LocalityWrapper>
 
-          {cart?.length ? (
+          {cartQuantity ? (
             <Link to="/checkout">
               <BtnBag type="button">
-                {amountProducts! >= 1 && (
-                  <AmountProducts>{amountProducts}</AmountProducts>
+                {cartQuantity >= 1 && (
+                  <AmountProducts>{cartQuantity}</AmountProducts>
                 )}
                 <ShoppingCart color="#C47F17" size={20} weight="fill" />
               </BtnBag>

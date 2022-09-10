@@ -17,4 +17,11 @@ export const GlobalStyles = createGlobalStyle`
     font-family: 'Baloo 2', cursive;
     font-weight: 700;
   }
+
+  .container {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
 `

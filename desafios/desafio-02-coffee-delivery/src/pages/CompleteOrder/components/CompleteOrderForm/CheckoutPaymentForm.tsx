@@ -1,7 +1,7 @@
 import { Bank, CreditCard, Money } from 'phosphor-react'
 import { useFormContext } from 'react-hook-form'
 import { useTheme } from 'styled-components'
-import { CheckoutPaymentFormContainer, PaymentCard } from './styles'
+import { CheckoutPaymentFormContainer, ErrorText, PaymentCard } from './styles'
 
 export function CheckoutPaymentForm() {
   const theme = useTheme()
@@ -50,7 +50,9 @@ export function CheckoutPaymentForm() {
         </label>
       </PaymentCard>
 
-      {errors.paymentMethod && <p>{errors.paymentMethod?.message}</p>}
+      {errors.paymentMethod && (
+        <ErrorText>{errors.paymentMethod?.message}</ErrorText>
+      )}
       {/* <button type="submit">d</button> */}
     </CheckoutPaymentFormContainer>
   )

@@ -10,13 +10,13 @@ import { useContext } from 'react'
 import { CartContext } from '../../contexts/CartContext'
 
 const checkoutValidationSchema = zod.object({
-  cep: zod.string(),
-  street: zod.string(),
-  number: zod.number(),
+  cep: zod.string().min(1, 'Informe o CEP'),
+  street: zod.string().min(1, 'Informe o endereço'),
+  number: zod.number().min(1, 'Informe o número'),
   complement: zod.string(),
-  district: zod.string(),
-  city: zod.string(),
-  state: zod.string(),
+  district: zod.string().min(1, 'Informe o bairro'),
+  city: zod.string().min(1, 'Informe a cidade'),
+  state: zod.string().min(1, 'Informe o estado'),
   paymentMethod: zod.enum(['credit', 'debit', 'money'], {
     errorMap: (issue, ctx) => {
       return { message: 'Você deve selecionar um método de pagamento' }

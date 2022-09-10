@@ -43,17 +43,17 @@ export const CheckoutAddresFormContainer = styled.div`
 `
 
 export const CheckoutPaymentFormContainer = styled.div`
+  margin: 1rem 0;
+`
+
+export const PaymentCard = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem;
   align-items: center;
   justify-content: center;
 
-  margin: 1rem 0;
-`
-
-export const PaymentCard = styled.div`
-  background-color: ${({ theme }) => theme.baseButton};
+  /* background-color: ${({ theme }) => theme.baseButton}; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -83,4 +83,10 @@ export const PaymentCard = styled.div`
     background-color: ${({ theme }) => theme.baseHover};
     transition: 0.4s;
   }
+`
+
+export const ErrorText = styled.p`
+  grid-column: span 3;
+  font-size: 0.875rem;
+  color: #ff0000;
 `

@@ -16,7 +16,12 @@ export function CheckoutAddresForm() {
         {...register('cep')}
         error={errors.cep?.message}
       />
-      <Input className="rua" placeholder="Rua" {...register('street')} />
+      <Input
+        className="rua"
+        placeholder="Rua"
+        {...register('street')}
+        error={errors.street?.message}
+      />
       <Input
         placeholder="Número"
         {...register('number', { valueAsNumber: true })}
@@ -27,9 +32,21 @@ export function CheckoutAddresForm() {
         placeholder="Complemento"
         {...register('complement')}
       />
-      <Input placeholder="Bairro" {...register('district')} />
-      <Input placeholder="Cidade" {...register('city')} />
-      <Input placeholder="UF" {...register('state')} />
+      <Input
+        placeholder="Bairro"
+        {...register('district')}
+        error={errors.district?.message}
+      />
+      <Input
+        placeholder="Cidade"
+        {...register('city')}
+        error={errors.city?.message}
+      />
+      <Input
+        placeholder="UF"
+        {...register('state')}
+        error={errors.state?.message}
+      />
     </CheckoutAddresFormContainer>
   )
 }

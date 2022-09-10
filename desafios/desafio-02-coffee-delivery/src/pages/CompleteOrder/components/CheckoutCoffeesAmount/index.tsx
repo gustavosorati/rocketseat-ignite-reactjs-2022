@@ -10,7 +10,6 @@ import {
   CoffeListContainer,
 } from './styles'
 
-import americano from '../../../../assets/coffees/americano.png'
 import { useCart } from '../../../../contexts/CartContext'
 import { BtnDelete } from '../../../../components/Forms/BtnDelete'
 import { InputQuantity } from '../../../../components/Forms/InputQuantity'
@@ -47,7 +46,7 @@ export function CheckoutCoffeesAmount() {
         {cartItems.map((coffee) => {
           return (
             <ProductContainer key={coffee.id}>
-              <img src={americano} alt="" />
+              <img src={`src/assets/coffees/${coffee.image}`} alt="" />
 
               <ProductDescription>
                 <strong>{coffee.title}</strong>

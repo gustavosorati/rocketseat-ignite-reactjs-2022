@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
-export const InputStyledContainer = styled.div`
+export const InputContainer = styled.div`
   position: relative;
   display: flex;
 `
 
-export const Input = styled.input`
+export const InputComponent = styled.input`
   width: 100%;
   display: flex;
   align-items: center;
@@ -26,6 +26,10 @@ export const Input = styled.input`
     color: ${({ theme }) => theme.baseText};
 
     transition: 0.4s;
+  }
+
+  &.error {
+    border-color: #ff3333;
   }
 `
 

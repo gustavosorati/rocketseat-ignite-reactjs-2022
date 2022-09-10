@@ -1,20 +1,29 @@
-import React, { InputHTMLAttributes } from 'react'
-import { Input, InputStyledContainer, OptionalText } from './styles'
+import { forwardRef, InputHTMLAttributes } from 'react'
+import { InputComponent, InputContainer, OptionalText } from './styles'
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
-  opcional?: string
+  textOpcional?: string
   error?: string
 }
 
 // eslint-disable-next-line react/display-name
-export const InputStyled = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ error, opcional, placeholder, ...props }, ref) => {
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  (
+    { error, placeholder, className, textOpcional, ...props }: InputProps,
+    ref,
+  ) => {
     return (
-      <InputStyledContainer>
-        <Input type="text" placeholder={placeholder} ref={ref} {...props} />
-        {opcional && <OptionalText>{opcional}</OptionalText>}
-        {error && <p>{error}</p>}
-      </InputStyledContainer>
+      <InputContainer className={className}>
+        <InputComponent
+          className={error ? 'error' : ''}
+          type="text"
+          placeholder={placeholder}
+          ref={ref}
+          {...props}
+        />
+        {textOpcional && <OptionalText>{textOpcional}</OptionalText>}
+        {/* {error && <span>{error}</span>} */}
+      </InputContainer>
     )
   },
 )

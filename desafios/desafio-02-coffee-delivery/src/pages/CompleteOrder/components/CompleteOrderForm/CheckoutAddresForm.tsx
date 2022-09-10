@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form'
-import { Input } from '../../../../components/Forms/Input copy'
+import { Input } from '../../../../components/Forms/Input'
 
 // import { InputStyled } from '../../../../components/Forms/Input'
 import { CheckoutAddresFormContainer } from './styles'

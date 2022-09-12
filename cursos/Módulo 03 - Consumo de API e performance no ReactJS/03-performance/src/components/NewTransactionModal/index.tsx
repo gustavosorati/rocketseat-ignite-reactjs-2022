@@ -12,7 +12,6 @@ import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { TransactionsContext } from '../../contexts/TransactionsContext'
 import { useContextSelector } from 'use-context-selector'
-import { useCallback } from 'react'
 
 const newTransactionFormSchema = z.object({
   description: z.string(),
@@ -44,14 +43,11 @@ export function NewTransactionModal() {
     },
   })
 
-  const handleCreateNewTransaction = useCallback(
-    async (data: NewTransactionFormInputs) => {
-      await createTransaction(data)
+  async function handleCreateNewTransaction(data: NewTransactionFormInputs) {
+    await createTransaction(data)
 
-      reset()
-    },
-    [],
-  )
+    reset()
+  }
 
   return (
     <Dialog.Portal>

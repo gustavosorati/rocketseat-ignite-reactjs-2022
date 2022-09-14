@@ -1,4 +1,4 @@
-![Capa](/src/assets/md_capa.jpg)
+![Capa](src/assets/md_capa.jpg)
 
 # **Desafio Ignite React 2022**
 

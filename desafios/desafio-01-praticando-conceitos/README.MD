@@ -6,6 +6,10 @@
 
 O desafio propõe o desenvolvimento de uma aplicação To-Do utilizando alguns conceitos básicos de React, entre eles `Typescript`, `CSS Modules`
 
+## Projeto
+
+<a href="https://ignite-reactjs-desafio-01-one.vercel.app/">Todo List</a>
+
 ### Tecnologias utilizadas
 
 - Vite

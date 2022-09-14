@@ -8,7 +8,7 @@ O desafio propõe o desenvolvimento de uma aplicação To-Do utilizando alguns c
 
 ## Projeto
 
-<a href="https://ignite-reactjs-desafio-01-one.vercel.app/">Todo List</a>
+<a href="https://ignite-reactjs-desafio-01-one.vercel.app/" target="_blank">Todo List</a>
 
 ### Tecnologias utilizadas
 

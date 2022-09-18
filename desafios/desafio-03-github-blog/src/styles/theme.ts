@@ -22,4 +22,4 @@ export const defaultTheme = {
     '3xl': '1.25rem',
     '4xl': '1.50rem',
   }
-}
+} as const;

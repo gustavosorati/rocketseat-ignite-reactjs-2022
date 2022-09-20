@@ -1,4 +1,4 @@
-import { GetStaticProps } from "next"
+import { GetStaticPaths, GetStaticProps } from "next"
 import Image from "next/future/image"
 import { useRouter } from "next/router"
 import Stripe from "stripe"
@@ -32,6 +32,19 @@ export default function Product({product}: ProductProps) {
         </ProductDetails>
       </ProductContainer>
     )
+}
+
+// Sempre que utilizarmos getStaticProps e ele dependender de um parâmetro
+// Iremos precisar gerar um getStaticPaths para passar esses parâmetros na build inicial
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [
+      {
+        params: { id: 'prod_MLH5Wy0Y97hDAC' }
+      }
+    ],
+    fallback: false
+  }
 }
 
 export const getStaticProps: GetStaticProps<any, { id: string }> = async ({params}) => {

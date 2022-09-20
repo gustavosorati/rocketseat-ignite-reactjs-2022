@@ -16,34 +16,47 @@ interface ProductProps {
 }
 
 export default function Product({product}: ProductProps) {
-    return (
-      <ProductContainer>
-        <ImageContainer>
-          <Image src={product.imageUrl} width={520} height={480} alt="" />
-        </ImageContainer>
+  const { isFallback } = useRouter()
 
-        <ProductDetails>
-          <h1>{product.name}</h1>
-          <span>{product.price}</span>
+  if(isFallback) return <p>Loading</p>
 
-          <p>{product.description}</p>
+  return (
+    <ProductContainer>
+      <ImageContainer>
+        <Image src={product.imageUrl} width={520} height={480} alt="" />
+      </ImageContainer>
 
-          <button>Comprar Agora</button>
-        </ProductDetails>
-      </ProductContainer>
-    )
+      <ProductDetails>
+        <h1>{product.name}</h1>
+        <span>{product.price}</span>
+
+        <p>{product.description}</p>
+
+        <button>Comprar Agora</button>
+      </ProductDetails>
+    </ProductContainer>
+  )
 }
 
 // Sempre que utilizarmos getStaticProps e ele dependender de um parâmetro
 // Iremos precisar gerar um getStaticPaths para passar esses parâmetros na build inicial
 export const getStaticPaths: GetStaticPaths = async () => {
+  // Buscar os produtos mais vendidos / mais acessados -> pois as páginas desses produtos já estaram
+  // disponiveis
+
+  // O resto dos produtos iria dar 404, mas para isso temos a opção fallback que quando false retorna 404, enquanto o true tentará criar a página caso o parametro ainda não tenha sido passado
+  // Contudo quando utilizamos true, o next monta a pagina sem os dados do produto, por debaixo dos panos ele tentará executar o getStaticProps.
+  // Por isso temos que capturar o estado da requisição e se necessário rodar um outro componente, enquanto o fetching não termina.
+  // A opção blocking - Não exibe nada em tela enquanto não for carregado os dados, sendo uma experiência pior
+
+
   return {
     paths: [
       {
         params: { id: 'prod_MLH5Wy0Y97hDAC' }
       }
     ],
-    fallback: false
+    fallback: true
   }
 }
 

@@ -44,6 +44,9 @@ export const CheckoutAddresFormContainer = styled.div`
 
 export const CheckoutPaymentFormContainer = styled.div`
   margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `
 
 export const PaymentCard = styled.div`
@@ -53,13 +56,9 @@ export const PaymentCard = styled.div`
   align-items: center;
   justify-content: center;
 
-  /* background-color: ${({ theme }) => theme.baseButton}; */
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid transparent;
-  border-radius: 6px;
-  height: 51px;
 
   input {
     appearance: none;
@@ -67,21 +66,27 @@ export const PaymentCard = styled.div`
   }
 
   label {
-    padding: 12px;
     display: flex;
     align-items: center;
     gap: 8px;
+    padding: 1rem;
 
     color: ${({ theme }) => theme.baseText};
     font-size: 0.75rem;
     text-transform: uppercase;
 
-    cursor: pointer;
-  }
+    background-color: ${({ theme }) => theme.baseButton};
+    border: 1px solid transparent;
+    border-radius: 6px;
+    height: 51px;
+    width: 178px;
 
-  &:hover {
-    background-color: ${({ theme }) => theme.baseHover};
-    transition: 0.4s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: ${({ theme }) => theme.baseHover};
+      transition: 0.4s;
+    }
   }
 `
 

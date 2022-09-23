@@ -1,60 +1,41 @@
 import { useParams } from "react-router-dom";
 import { PostsContainer } from "./styles";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useCallback, useEffect, useState } from "react";
 import { PostHeader } from "./components/PostHeader";
+import { api } from "../../lib/api";
+import { PostContent } from "./components/PostContent";
 
-interface IRequest {
+export interface Post {
+  title: string;
   body: string;
-  comments_url: string;
+  comments: number;
   created_at: string;
   html_url: string;
-  title: string;
   user: {
     login: string;
   }
 }
-interface Post {
-  body: string;
-  comments: string;
-  created_at: string;
-  url: string;
-  title: string;
-  user: {
-    nick: string;
-  }
-}
+
+const username = import.meta.env.VITE_GIT_USERNAME;
+const repo_name = import.meta.env.VITE_GIT_REPONAME;
 
 
 export function Posts(){
   const {id} = useParams();
   const [post, setPost] = useState<Post>({} as Post);
-  const [isLoadgin, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  async function getPost() {
+  const getPost = useCallback(async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get<IRequest>(`https://api.github.com/repos/gustavosorati/rocketseat-ignite-reactjs/issues/${id}`);
-
-      const comments = await axios.get(response.data.comments_url);
-
-      setPost({
-        body: response.data.body,
-        comments: comments.data.length,
-        created_at: response.data.created_at,
-        url: response.data.html_url,
-        title: response.data.title,
-
-        user: {
-          nick: response.data.user.login,
-        }
-      });
+      const response = await api.get(`/repos/${username}/${repo_name}/issues/${id}`);
+      setPost(response.data);
     } catch (err) {
       console.log(err)
     }finally {
       setIsLoading(false);
     }
-  }
+  }, [post]);
 
   useEffect(() => {
     getPost();
@@ -62,21 +43,8 @@ export function Posts(){
 
   return (
     <PostsContainer className="container">
-      {post && (
-        <>
-          <PostHeader
-            url_post="fdfsdf"
-            title="xxx"
-            comments="xxx"
-            // nick={post.user.}
-            created_at="xxx"
-          />
-
-        <p>
-          {post.body}
-        </p>
-        </>
-      )}
+      <PostHeader postData={post} isLoading={isLoading} />
+      <PostContent text={post.body} />
     </PostsContainer>
   )
 }

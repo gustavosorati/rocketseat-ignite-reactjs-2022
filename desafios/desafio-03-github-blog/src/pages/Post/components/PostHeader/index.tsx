@@ -1,54 +1,70 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Footer, PerfilContainer, Title } from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComment, faArrowUpRightFromSquare, faChevronLeft, faCalendarDay } from '@fortawesome/free-solid-svg-icons';
+import { faComment, faArrowUpRightFromSquare, faChevronLeft, faCalendarDay, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { formatDistance } from "date-fns";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { Post } from "../..";
+import ptBR from "date-fns/locale/pt-BR/index.js";
+import { Spinner } from "../../../../components/Spinner";
 
-interface TitleProps {
-  url_post: string;
-  comments: string;
-  title: string;
-  // nick: string;
-  created_at: string;
+interface PostHeaderProps {
+  postData: Post;
+  isLoading: boolean;
 }
 
-export function PostHeader(post: TitleProps) {
+export function PostHeader({postData, isLoading}: PostHeaderProps) {
   const navigate = useNavigate();
+  let formatedDate: string = '0';
+
+  if(postData.created_at) {
+    formatedDate = formatDistance(new Date(`${postData.created_at}`), new Date(), {
+      addSuffix: true,
+      locale: ptBR
+    });
+  }
+
 
   return (
-    <PerfilContainer className="xxx">
-        <header>
-          <button onClick={() => navigate(-1)}>
-            <FontAwesomeIcon icon={faChevronLeft} />
-            Voltar
-          </button>
+    <PerfilContainer>
+      {isLoading ? (
+          <Spinner />
+      ) : (
+        <>
+          <header>
+            <button onClick={() => navigate(-1)}>
+              <FontAwesomeIcon icon={faChevronLeft} />
+              Voltar
+            </button>
 
-          <Link to={post.url_post} target="_blank">
-            github
-            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-          </Link>
-        </header>
+            <a href={postData.html_url} target="_blank">
+              github
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            </a>
+          </header>
 
-        <Title>{post.title}</Title>
+          <Title>{postData.title}</Title>
 
-        <Footer>
-          <span>
-            <FontAwesomeIcon icon={faGithub} />
-            gustavosorati
-          </span>
+          <Footer>
+            {postData.user && (
+              <span>
+                <FontAwesomeIcon icon={faGithub} />
+                {postData.user.login}
+              </span>
+            )}
 
             <span>
-              <FontAwesomeIcon icon={faCalendarDay} />
-              Há 5 dias
+               <FontAwesomeIcon icon={faCalendarDay} />
+               {formatedDate}
             </span>
 
-
-          <span>
-            <FontAwesomeIcon icon={faComment} />
-            0 comentários
-          </span>
-        </Footer>
+             <span>
+               <FontAwesomeIcon icon={faComment} />
+               {postData.comments} comentários
+             </span>
+           </Footer>
+        </>
+      )}
     </PerfilContainer>
   )
 }

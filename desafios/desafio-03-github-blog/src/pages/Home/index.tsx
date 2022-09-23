@@ -7,7 +7,7 @@ import { Profile } from "./components/Profile";
 import { api } from "../../lib/api";
 import { Spinner } from "../../components/Spinner";
 
-interface IRequestIssues {
+interface IRequest {
   items: {
     number: number;
     title: string;
@@ -24,12 +24,11 @@ export function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
 
-
   const getPosts = useCallback(async (query: string = "") => {
     try {
       setIsLoading(true);
 
-      const response = await api.get<IRequestIssues>(`/search/issues?q=${query}%20repo:${username}/${repo_name}/`);
+      const response = await api.get<IRequest>(`/search/issues?q=${query}%20repo:${username}/${repo_name}/`);
 
       const issues = response.data.items.map(issue => {
         return {
@@ -60,7 +59,11 @@ export function Home() {
       <SearchBar amount={posts.length} getPosts={getPosts} />
 
       <PostListContainer>
-        {isLoading && <Spinner />}
+        {isLoading && (
+          <div className="spinnerContainer">
+            <Spinner />
+          </div>
+        )}
         {!isLoading && posts.map(post => {
             return (
               <Post

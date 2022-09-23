@@ -9,4 +9,9 @@ export const PostListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 400px);
   gap: 2rem;
+
+  .spinnerContainer {
+    grid-column: span 2;
+    margin-top: 6rem;
+  }
 `

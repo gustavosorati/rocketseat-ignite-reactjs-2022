@@ -1,5 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from 'rehype-highlight'
+import { PostContentContaienr } from "./styles";
 
 interface PostContentProps {
   text: string;
@@ -8,10 +9,12 @@ interface PostContentProps {
 export function PostContent({text}: PostContentProps) {
 
   return (
-    <ReactMarkdown
-      rehypePlugins={[rehypeHighlight]}
-    >
-      {text}
-    </ReactMarkdown>
+    <PostContentContaienr>
+      <ReactMarkdown
+        rehypePlugins={[rehypeHighlight]}
+      >
+        {text}
+      </ReactMarkdown>
+    </PostContentContaienr>
   )
 }

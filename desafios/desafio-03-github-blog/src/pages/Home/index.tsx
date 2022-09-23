@@ -1,86 +1,78 @@
-import { Link } from "react-router-dom";
-import { About, HomeContainer, PerfilContainer } from "./styles";
-import userImg from '../../assets/user.jpg'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBuilding, faUsers } from '@fortawesome/free-solid-svg-icons';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { HomeContainer, PostListContainer } from "./styles";
+
 import { SearchBar } from "./components/SearchBar";
-import { Post } from "./components/Posts";
+import { IPost, Post } from "./components/Post";
+import { useCallback, useEffect, useState } from "react";
+import { Profile } from "./components/Profile";
+import { api } from "../../lib/api";
+import { Spinner } from "../../components/Spinner";
 
+interface IRequestIssues {
+  items: {
+    number: number;
+    title: string;
+    body: string;
+    created_at: string;
+  }[]
+}
 
+const username = import.meta.env.VITE_GIT_USERNAME;
+const repo_name = import.meta.env.VITE_GIT_REPONAME;
 
 export function Home() {
+  const [posts, setPosts] = useState<IPost[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+
+
+  const getPosts = useCallback(async (query: string = "") => {
+    try {
+      setIsLoading(true);
+
+      const response = await api.get<IRequestIssues>(`/search/issues?q=${query}%20repo:${username}/${repo_name}/`);
+
+      const issues = response.data.items.map(issue => {
+        return {
+          issue_number: issue.number,
+          title: issue.title,
+          body: issue.body,
+          created_at: issue.created_at
+        }
+      });
+
+      setPosts(issues);
+    } catch(err) {
+      setIsLoading(false)
+      console.log(err);
+    } finally {
+      setIsLoading(false)
+    }
+  }, [posts]);
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+
   return (
     <HomeContainer className="container">
-      <PerfilContainer>
-        <img src={userImg} alt="" />
+      <Profile />
 
-        <About className="about">
-          <div>
-            <strong>Cameron Williamson</strong>
-            <Link to="/">github</Link>
-          </div>
+      <SearchBar amount={posts.length} getPosts={getPosts} />
 
-          <p>Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat pulvinar vel mass.</p>
-
-          <footer>
-            <span>
-              <FontAwesomeIcon icon={faGithub} />
-              cameronwll
-            </span>
-
-            <span>
-              <FontAwesomeIcon icon={faBuilding} />
-              Rocketseat
-            </span>
-
-            <span>
-              <FontAwesomeIcon icon={faUsers} />
-              32 seguidores
-            </span>
-          </footer>
-        </About>
-      </PerfilContainer>
-
-      <SearchBar />
-
-      <section>
-          <Post
-            title="JavaScript data types and data structures"
-            date="Há 1 dia"
-            description="Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in "
-          />
-
-          <Post
-            title="JavaScript data types and data structures"
-            date="Há 1 dia"
-            description="Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in "
-          />
-
-          <Post
-            title="JavaScript data types and data structures"
-            date="Há 1 dia"
-            description="Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in "
-          />
-
-          <Post
-            title="JavaScript data types and data structures"
-            date="Há 1 dia"
-            description="Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in "
-          />
-
-          <Post
-            title="JavaScript data types and data structures"
-            date="Há 1 dia"
-            description="Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in "
-          />
-
-          <Post
-            title="JavaScript data types and data structures"
-            date="Há 1 dia"
-            description="Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in "
-          />
-      </section>
+      <PostListContainer>
+        {isLoading && <Spinner />}
+        {!isLoading && posts.map(post => {
+            return (
+              <Post
+                key={post.issue_number}
+                issue_number={post.issue_number}
+                title={post.title}
+                created_at={post.created_at}
+                body={post.body}
+              />
+            )
+          })}
+      </PostListContainer>
     </HomeContainer>
   )
 }

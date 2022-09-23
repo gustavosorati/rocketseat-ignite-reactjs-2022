@@ -21,7 +21,6 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({theme}) => theme.colors.blue};
 
     &:hover {
-      text-decoration: underline;
       transition: text-decoration 0.2s;
     }
   }

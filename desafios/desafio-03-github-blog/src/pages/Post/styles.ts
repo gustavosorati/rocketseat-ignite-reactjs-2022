@@ -1,11 +1,8 @@
 import styled from "styled-components";
 
 export const PostsContainer = styled.div`
-  header {
-    margin-top: -50px;
+  /* header {
 
-    width: 100%;
-    background-color: ${({theme}) => theme.colors["base-post"]};
     position: relative;
 
     display: flex;
@@ -48,5 +45,5 @@ export const PostsContainer = styled.div`
         gap: .5rem;
       }
     }
-  }
+  } */
 `

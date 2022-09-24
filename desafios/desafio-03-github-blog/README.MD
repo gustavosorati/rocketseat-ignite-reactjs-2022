@@ -8,9 +8,9 @@ Esse projeto faz parte dos desafios propostos no curso da **Rocketseat Ignite Re
 
 ## 🔧 Instalação
 
-Antes de executar o projeto, será necessário que você tenha instalado o **NodeJS**, caso não tenha pode baixa-lo [aqui](https://nodejs.org/en/download/).
+Antes de executar o projeto, será necessário que você tenha instalado o **NodeJS** na sua maquina, caso não tenha, pode baixa-lo [aqui](https://nodejs.org/en/download/).
 
-Após isso a primeira coisa a se fazer, será criar um repositório no github com alguns issues dentro dele, esses issues serão as postagens do blog.
+Após isso, a primeira coisa a se fazer, será criar um repositório no github com alguns issues dentro dele, esses issues serão as postagens do blog.
 
 Na raiz do projeto criar um arquivo `.env` com as seguintes variáveis:
 

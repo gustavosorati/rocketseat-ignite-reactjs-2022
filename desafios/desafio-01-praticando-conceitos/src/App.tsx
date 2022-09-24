@@ -10,14 +10,12 @@ export interface ITask {
   content: string;
 }
 
-
 function App() {
   const [tasks, setTasks] = useState<ITask[]>([]);
 
   useEffect(() => {
     const tasksExists = localStorage.getItem('tasks');
     if(tasksExists) setTasks(JSON.parse(tasksExists));
-
   }, []);
 
   function saveTask(tasks: ITask[]){

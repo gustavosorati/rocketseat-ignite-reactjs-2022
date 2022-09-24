@@ -28,7 +28,7 @@ export function PostHeader({postData, isLoading}: PostHeaderProps) {
   return (
     <PerfilContainer>
       {isLoading ? (
-          <Spinner />
+        <Spinner />
       ) : (
         <>
           <header>
@@ -46,12 +46,11 @@ export function PostHeader({postData, isLoading}: PostHeaderProps) {
           <Title>{postData.title}</Title>
 
           <Footer>
-            {postData.user && (
               <span>
                 <FontAwesomeIcon icon={faGithub} />
                 {postData.user.login}
               </span>
-            )}
+
 
             <span>
                <FontAwesomeIcon icon={faCalendarDay} />

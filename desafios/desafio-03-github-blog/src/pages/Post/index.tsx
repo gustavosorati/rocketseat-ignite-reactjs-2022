@@ -23,7 +23,7 @@ const repo_name = import.meta.env.VITE_GIT_REPONAME;
 export function Posts(){
   const {id} = useParams();
   const [post, setPost] = useState<Post>({} as Post);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getPost = useCallback(async () => {
     try {
@@ -31,8 +31,8 @@ export function Posts(){
       const response = await api.get(`/repos/${username}/${repo_name}/issues/${id}`);
       setPost(response.data);
     } catch (err) {
-      console.log(err)
-    }finally {
+      console.log(err);
+    } finally {
       setIsLoading(false);
     }
   }, [post]);

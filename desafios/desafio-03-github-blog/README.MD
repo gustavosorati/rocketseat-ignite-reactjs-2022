@@ -1,6 +1,6 @@
 # Desafio 03 Ignite React 2022 - Github Blog
 
-![Capa Github Explorer](/public/capa.jpg)
+![Capa Github Explorer](https://i.ibb.co/f0PWwmZ/capa.jpg)
 
 O Projeto busca as issues de um repositório do github de um usuário e as exibe como se fosse um blog.
 

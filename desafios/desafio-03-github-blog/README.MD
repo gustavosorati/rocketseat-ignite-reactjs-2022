@@ -4,7 +4,7 @@
 
 O Projeto busca as issues de um repositório do github de um usuário e as exibe como se fosse um blog.
 
-Esse projeto é faz parte dos desafios propostos no curso da Rocketseat Ignite ReactJS 2022.
+Esse projeto é faz parte dos desafios propostos no curso da Rocketseat Ignite ReactJS 2022. Você pode conferir o layout da aplicação aqui: [Figma Github Blog](<https://www.figma.com/file/KYwfq1d1mGqv3urZuOspRO/GitHub-Blog-(Community)?node-id=2%3A12>)
 
 ## 🔧 Instalação
 

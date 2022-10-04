@@ -24,7 +24,6 @@ export function PostHeader({postData, isLoading}: PostHeaderProps) {
     });
   }
 
-
   return (
     <PerfilContainer>
       {isLoading ? (

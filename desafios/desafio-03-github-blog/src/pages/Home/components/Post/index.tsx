@@ -16,7 +16,8 @@ export function Post({ issue_number, title, body, created_at}: IPost) {
     <PostContainer to={`/posts/${issue_number}`}>
       <header>
         <strong>{title}</strong>
-        <span>{formatDistance(new Date(created_at), new Date(), {
+        <span>
+          {formatDistance(new Date(created_at), new Date(), {
           addSuffix: true,
           locale: ptBR
         })}</span>

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const PostContainer = styled(Link)`
+  width: 100%;
   max-width: 400px;
   width: 100%;
   height: 280px;
@@ -11,6 +12,9 @@ export const PostContainer = styled(Link)`
   padding: 2rem;
 
   border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
   &:hover {
     border-color: ${({theme}) => theme.colors["base-label"]};
@@ -19,21 +23,18 @@ export const PostContainer = styled(Link)`
   header {
     display: flex;
     justify-content: space-between;
+    gap: 15px;
 
     strong {
       flex: 1;
       color: ${({theme}) => theme.colors["base-title"]};
-      font-size: ${({theme}) => theme.fonts["3xl"]};
-
-      margin-bottom: 1rem;
+      font-size: ${({theme}) => theme.fonts["2xl"]};
     }
 
     span {
       color: ${({theme}) => theme.colors["base-span"]};
       font-size: ${({theme}) => theme.fonts["medium"]};
     }
-
-
   }
 `
 

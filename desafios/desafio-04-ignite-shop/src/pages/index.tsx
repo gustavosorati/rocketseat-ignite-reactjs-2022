@@ -19,7 +19,7 @@ interface HomeProps {
     name: string;
     imageUrl: string;
     price: string;
-  }[]
+  }[];
 }
 
 export function Home({products}: HomeProps) {
@@ -35,7 +35,6 @@ export function Home({products}: HomeProps) {
   function handleAddProductToCart(product: IProduct) {
     addProduct(product);
   }
-
 
   return (
     <>
@@ -67,7 +66,7 @@ export function Home({products}: HomeProps) {
 
       </HomeContainer>
 
-      {/* <Cart products={products} /> */}
+      {/* <Cart products={products}  /> */}
     </>
   )
 }

@@ -1,4 +1,12 @@
-import { styled } from "../../styles";
+import { styled, keyframes } from "../../styles";
+
+const moveLeft = keyframes({
+  '100%': { right: '400px' },
+})
+
+const moveRight = keyframes({
+  '100%': { right: '-400px' },
+})
 
 export const CartContainer = styled('div', {
   position: 'absolute',
@@ -17,6 +25,15 @@ export const CartContainer = styled('div', {
     color: "$gray100",
     fontSize: "$lg",
   },
+
+  transform: 'all 2s',
+  variants: {
+    isOpen: {
+      'true': {
+        animation: `${moveLeft} 2s forwards`
+      },
+    }
+  }
 });
 
 export const Content = styled('div', {

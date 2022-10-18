@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { X } from "phosphor-react";
-import { IProduct } from "../../context/CartContext";
+import { useContext } from "react";
+import { CartContext } from "../../context/CartContext";
 import { BtnClose, CartContainer, Content, Footer, Product } from "./styles";
 
 interface CartProps {
@@ -13,16 +14,15 @@ interface CartProps {
 }
 
 export function Cart({products}: CartProps) {
+  const {changeStatusBag, bagIsOpen} = useContext(CartContext);
 
-
-  function handleAddProductToCart(product: IProduct) {
-
+  function handleOpenCart() {
+    changeStatusBag();
   }
 
-
   return (
-    <CartContainer>
-      <BtnClose>
+    <CartContainer isOpen={bagIsOpen}>
+      <BtnClose onClick={handleOpenCart}>
         <X size={32} weight="bold" color="#8D8D99" />
       </BtnClose>
 

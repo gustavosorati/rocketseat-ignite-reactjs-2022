@@ -1,5 +1,6 @@
 import { Handbag } from "phosphor-react";
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes, useContext } from "react";
+import { CartContext } from "../../context/CartContext";
 import { BtnCartContainer, Wrapper } from "./styles";
 
 type IBtnCart = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -7,11 +8,14 @@ type IBtnCart = ButtonHTMLAttributes<HTMLButtonElement> & {
 }
 
 export function BtnCart({typeButton, ...props}: IBtnCart) {
+  const { productsList } = useContext(CartContext);
+
+
   return (
     <BtnCartContainer typeButton={typeButton} {...props}>
       {typeButton === "cart" ? (
         <Wrapper>
-          <span>1</span>
+          {productsList.length > 0 && <span>{productsList.length}</span>}
           <Handbag weight='bold' size={24} color={"#8D8D99"} />
         </Wrapper>
       ) : (

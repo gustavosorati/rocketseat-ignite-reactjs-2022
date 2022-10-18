@@ -1,9 +1,4 @@
-import { ButtonHTMLAttributes, ComponentType } from "react";
 import { styled } from "../../styles";
-
-// type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
-
-// type StyledContainerType = ComponentType<ButtonProps>
 
 export const BtnCartContainer = styled('button', {
   position: "relative",
@@ -14,13 +9,13 @@ export const BtnCartContainer = styled('button', {
 
   "span": {
     position: "absolute",
-    top: -12,
-    right: -12,
+    top: -10,
+    right: -10,
     border: "3px solid $gray900",
     borderRadius: "50%",
     backgroundColor: "$green500",
-    width: "24px",
-    height: "24px",
+    width: "26px",
+    height: "26px",
 
     display: "flex",
     alignItems: "center",
@@ -54,7 +49,6 @@ export const BtnCartContainer = styled('button', {
     }
   }
 });
-// <{}, StyledContainerType>;
 
 export const Wrapper = styled('div', {
 });

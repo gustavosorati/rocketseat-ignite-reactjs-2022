@@ -8,12 +8,18 @@ export interface IProduct {
 }
 
 interface ICart {
-  product: IProduct[];
-  total: number;
+  id: string;
+  name: string;
+  imageUrl: string;
+  quantity: number;
+  price: string;
 }
 
 interface ICartContext {
-  addProduct: (product: IProduct) => void
+  productsList: ICart[];
+  addProduct: (product: IProduct) => void;
+  bagIsOpen: boolean;
+  changeStatusBag: () => Promise<void>;
 }
 
 export const  CartContext = createContext<ICartContext>({} as ICartContext);
@@ -24,15 +30,39 @@ interface CartProvider {
 }
 
 export const CartProvider = ({children}: CartProvider) => {
-  const [cartProducts, setCartProducts] = useState<ICart>({} as ICart);
+  const [bagIsOpen, setBagIsOpen] = useState(false);
+  const [productsList, setProductsList] = useState<ICart[]>([]);
 
-  const addProduct = (product: IProduct) => {
-    console.log(product)
+  async function changeStatusBag() {
+    console.log('bag')
+    setBagIsOpen(!bagIsOpen);
   }
 
 
+  const addProduct = (data: IProduct) => {
+    const productsExist = productsList.find(prod => prod.id === data.id);
+
+    if(productsExist) {
+      const incrementQuantityProduct = productsList.map(prod => {
+        if(prod.id === productsExist.id) prod.quantity += 1;
+
+        return prod;
+      })
+
+      setProductsList(incrementQuantityProduct);
+    } else {
+      setProductsList((products) => [...products, {...data, quantity: 1}]);
+    }
+  }
+
+  console.log(bagIsOpen)
   return (
-    <CartContext.Provider value={{addProduct}}>
+    <CartContext.Provider value={{
+      productsList,
+      addProduct,
+      bagIsOpen,
+      changeStatusBag
+    }}>
       {children}
     </CartContext.Provider>
   )

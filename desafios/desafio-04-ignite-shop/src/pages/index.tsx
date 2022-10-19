@@ -12,7 +12,7 @@ import Head from 'next/head'
 import { BtnCart } from '../components/BtnCart'
 import { useContext, useState } from 'react'
 import { CartContext, IProduct } from '../context/CartContext'
-import { ArrowArcRight, ArrowElbowRight, ArrowLeft, ArrowRight, CaretLeft, CaretRight } from 'phosphor-react'
+import { CaretRight } from 'phosphor-react'
 
 interface HomeProps {
   products: {
@@ -26,12 +26,16 @@ interface HomeProps {
 export function Home({products}: HomeProps) {
   const {addProduct} = useContext(CartContext);
 
+  // slider
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [sliderRef, instanceRef] = useKeenSlider({
     initial: 0,
+    mode: "free-snap",
+    drag: false,
     slides: {
-      perView: 3,
+      origin: "center",
+      perView: 2,
       spacing: 48
     },
     slideChanged(slider) {
@@ -46,11 +50,6 @@ export function Home({products}: HomeProps) {
     addProduct(product);
   }
 
-  // ch
-  let amountClicksSlides: number;
-  if(loaded){
-    amountClicksSlides = Math.floor(products.length / (instanceRef.current.track.details.slides.length - 1))
-  }
 
   return (
     <>
@@ -60,51 +59,60 @@ export function Home({products}: HomeProps) {
 
       <HomeContainer ref={sliderRef} className="keen-slider">
 
-        {products.map(product => (
-          <Product className='keen-slider__slide' key={product.id}>
+        {products.map((product, index) => {
 
-            <Link href={`/product/${product.id}`}  prefetch={false}>
-              <Image src={product.imageUrl} width={520} height={480} alt="" />
-            </Link>
+          return (
+          <div className="teste" key={product.id}>
+            <Product
+              className='keen-slider__slide'
+              key={product.id}
+              isVisible={currentSlide === index}
+            >
 
-            <Footer>
-              <FooterLeft>
-                <strong>{product.name}</strong>
-                <span>{product.price}</span>
-              </FooterLeft>
+              <Link href={`/product/${product.id}`}  prefetch={false}>
+                <Image src={product.imageUrl} width={520} height={480} alt="" />
+              </Link>
 
-              <BtnCart
-                typeButton="button"
-                onClick={() => handleAddProductToCart(product)}
-              />
-            </Footer>
+              <Footer>
+                <FooterLeft>
+                  <strong>{product.name}</strong>
+                  <span>{product.price}</span>
+                </FooterLeft>
 
-          </Product>
-        ))}
+                <BtnCart
+                  typeButton="button"
+                  onClick={() => handleAddProductToCart(product)}
+                />
+              </Footer>
 
+            </Product>
+          </div>
+        )})}
+
+        {loaded && (
+          <>
+            <SliderControl
+            disabled={currentSlide === instanceRef.current.track.details.slides.length - 1}
+            left={false}
+            >
+              <button onClick={(e: any) => {
+                e.stopPropagation() || instanceRef.current?.next()
+              }}> <CaretRight size={48} weight={'regular'} color={"#c4c4cc"}/> </button>
+            </SliderControl>
+
+            <SliderControl
+            disabled={currentSlide === 0}
+            left={true}
+            >
+              <button onClick={(e: any) => {
+                e.stopPropagation() || instanceRef.current?.prev()
+              }}> <CaretRight size={48} weight={'regular'} color={"#c4c4cc"} /> </button>
+            </SliderControl>
+          </>
+        )}
       </HomeContainer>
 
-      {loaded && (
-        <>
-          <SliderControl
-          disabled={amountClicksSlides === currentSlide}
-          left={false}
-          >
-            <button onClick={(e: any) => {
-              e.stopPropagation() || instanceRef.current?.next()
-            }}> <CaretRight size={36} weight={'bold'} color={"#c4c4cc"}/> </button>
-          </SliderControl>
 
-          <SliderControl
-          disabled={currentSlide === 0}
-          left={true}
-          >
-            <button onClick={(e: any) => {
-              e.stopPropagation() || instanceRef.current?.prev()
-            }}> <CaretLeft size={36} weight={'bold'} color={"#c4c4cc"} /> </button>
-          </SliderControl>
-        </>
-      )}
 
       {/* <Cart products={products}  /> */}
     </>

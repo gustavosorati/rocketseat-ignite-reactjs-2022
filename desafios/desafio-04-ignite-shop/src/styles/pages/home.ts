@@ -1,33 +1,75 @@
-import { styled } from "..";
-
+import { styled, keyframes } from "..";
 
 export const HomeContainer = styled('main', {
   display: 'flex',
   // gap: '3rem', keen-slider se perde no gap
 
-  width: '100%',
-  maxWidth: 'calc(100vw - ((100vw - 1180px) / 2))',
-  marginLeft: 'auto',
+  // width: '100%',
+  // maxWidth: '1180px',
+  maxWidth: '1360px',
+  // marginLeft: 'auto',
+  margin: '0 auto',
   minHeight: 656,
 });
+
+// Animações
+const up = keyframes({
+  '0%': {
+    transform: 'translateY(110%)',
+    opacity: 0
+  },
+  '100%': {
+    transform: 'translateY(0%)',
+    opacity: 1
+  }
+})
+
+const down = keyframes({
+  '0%': {
+    transform: 'translateY(0%)',
+    opacity: 0
+  },
+  '100%': {
+    transform: 'translateY(110%)',
+    opacity: 1
+  }
+})
 
 export const Product = styled('div', {
   background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
   borderRadius: 8,
-  // padding: '0.25rem' keen-slider,
   cursor: 'pointer',
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  minWidth: 584,
+  maxWidth: 696,
+  minHeight: 656,
 
   img: {
     objectFit: 'cover'
   },
 
-  footer: {
-    position: 'absolute',
+  variants: {
+    isVisible: {
+      true: {
+        footer: {
+          animation: `${up} 300ms ease forwards`
+        }
+      },
+      false: {
+        footer: {
+          animation: `${down} 200ms ease forwards`
+        }
+      }
+    }
+  }
+
+
+});
+
+export const Footer = styled('footer', {
+  position: 'absolute',
     bottom: '0.25rem',
     left: '0.25rem',
     right: '0.25rem',
@@ -39,7 +81,7 @@ export const Product = styled('div', {
     alignItems: 'center',
     justifyContent: 'space-between',
 
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    backgroundColor: '#202024',
 
     transform: 'translateY(110%)',
     opacity: 0,
@@ -54,41 +96,6 @@ export const Product = styled('div', {
       fontWeight: 'bold',
       color: '$green300'
     },
-  },
-
-  '&:hover': {
-    footer: {
-      transform: 'translateY(0%)',
-      opacity: 1
-    }
-  }
-});
-
-export const Footer = styled('footer', {
-  position: 'absolute',
-  bottom: '0.25rem',
-  left: '0.25rem',
-  right: '0.25rem',
-  padding: '2rem',
-
-  borderRadius: 6,
-
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-
-  backgroundColor: 'rgba(0, 0, 0, 0.6)',
-
-  transform: 'translateY(110%)',
-  opacity: 0,
-  transition: 'all 0.2s ease-in-out',
-
-  '&:hover': {
-    footer: {
-      transform: 'translateY(0%)',
-      opacity: 1
-    }
-  }
 });
 
 export const FooterLeft = styled('div', {
@@ -111,17 +118,13 @@ export const FooterLeft = styled('div', {
 
 export const SliderControl = styled('div', {
   position: 'absolute',
-  width: '100px',
-  height: '100vh',
+  width: '136px',
+  height: '100%',
   top: 0,
-
-  background: `linear-gradient(90deg, rgba(18, 18, 20, 0) 0%, rgba(18, 18, 20, 0.75) 100%)`,
-
 
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-
 
   variants: {
     disabled: {
@@ -134,9 +137,12 @@ export const SliderControl = styled('div', {
     },
     left: {
       true: {
-        left: 0
+        background: `linear-gradient(90deg, rgba(18, 18, 20, 0) 0%, rgba(18, 18, 20, 0.75) 100%)`,
+        transform: 'matrix(-1, 0, 0, 1, 0, 0)',
+        left: '0'
       },
       false: {
+        background: `linear-gradient(90deg, rgba(18, 18, 20, 0) 0%, rgba(18, 18, 20, 0.75) 100%)`,
         right: 0
       }
     }

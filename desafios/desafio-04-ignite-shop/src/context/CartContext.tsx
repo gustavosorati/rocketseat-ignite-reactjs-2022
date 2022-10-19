@@ -17,8 +17,9 @@ interface ICart {
 
 interface ICartContext {
   productsList: ICart[];
-  addProduct: (product: IProduct) => void;
   bagIsOpen: boolean;
+  addProduct: (product: IProduct) => void;
+  deleteProduct: (id: string) => void;
   changeStatusBag: () => Promise<void>;
 }
 
@@ -34,10 +35,8 @@ export const CartProvider = ({children}: CartProvider) => {
   const [productsList, setProductsList] = useState<ICart[]>([]);
 
   async function changeStatusBag() {
-    console.log('bag')
     setBagIsOpen(!bagIsOpen);
   }
-
 
   const addProduct = (data: IProduct) => {
     const productsExist = productsList.find(prod => prod.id === data.id);
@@ -55,12 +54,18 @@ export const CartProvider = ({children}: CartProvider) => {
     }
   }
 
-  console.log(bagIsOpen)
+  const deleteProduct = (id: string) => {
+    const remainingProducts = productsList.filter(product => product.id === id);
+
+    setProductsList(remainingProducts);
+  }
+
   return (
     <CartContext.Provider value={{
       productsList,
-      addProduct,
       bagIsOpen,
+      addProduct,
+      deleteProduct,
       changeStatusBag
     }}>
       {children}

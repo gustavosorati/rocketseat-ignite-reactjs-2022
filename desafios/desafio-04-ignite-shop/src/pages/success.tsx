@@ -41,7 +41,7 @@ export default function Success({customerName, product }: SucceessProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ( { query }) => {
+export const getServerSideProps: GetServerSideProps = async ( { query } ) => {
   if(!query.session_id) {
     return {
       // notFound: true -> retorna um erro 404
@@ -59,7 +59,7 @@ export const getServerSideProps: GetServerSideProps = async ( { query }) => {
   });
 
   const customerName = session.customer_details.name;
-  const product = session.line_items[0].price.product as Stripe.Product
+  const product = session.line_items.data[0].price.product as Stripe.Product
 
   return {
     props: {

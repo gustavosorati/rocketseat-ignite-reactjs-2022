@@ -109,4 +109,44 @@ export const FooterLeft = styled('div', {
   },
 });
 
+export const SliderControl = styled('div', {
+  position: 'absolute',
+  width: '100px',
+  height: '100vh',
+  top: 0,
+
+  background: `linear-gradient(90deg, rgba(18, 18, 20, 0) 0%, rgba(18, 18, 20, 0.75) 100%)`,
+
+
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+
+
+  variants: {
+    disabled: {
+      true: {
+        opacity: '0'
+      },
+      false: {
+        opacity: '1'
+      }
+    },
+    left: {
+      true: {
+        left: 0
+      },
+      false: {
+        right: 0
+      }
+    }
+  },
+
+  button : {
+    background: 'transparent',
+    border: 'none',
+
+    cursor: "pointer",
+  }
+});
 

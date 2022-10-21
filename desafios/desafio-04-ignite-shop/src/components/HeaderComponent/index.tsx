@@ -5,6 +5,7 @@ import {  Header } from '../../styles/pages/app';
 import { BtnCart } from '../BtnCart';
 import { CartContext } from '../../context/CartContext';
 import { useContext } from 'react';
+import Link from 'next/link';
 
 export function HeaderComponent(){
   const { changeStatusBag } = useContext(CartContext);
@@ -15,7 +16,9 @@ export function HeaderComponent(){
 
   return (
     <Header>
-      <Image src={logoImg} alt="" />
+      <Link href="/">
+        <Image src={logoImg} alt="" />
+      </Link>
 
       <BtnCart
         type="button"

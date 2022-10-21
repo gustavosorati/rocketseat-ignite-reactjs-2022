@@ -44,7 +44,7 @@ export const Product = styled('div', {
   alignItems: 'center',
   justifyContent: 'center',
   maxWidth: 696,
-  minHeight: 656,
+
 
   img: {
     objectFit: 'cover'
@@ -70,32 +70,32 @@ export const Product = styled('div', {
 
 export const Footer = styled('footer', {
   position: 'absolute',
-    bottom: '0.25rem',
-    left: '0.25rem',
-    right: '0.25rem',
-    padding: '2rem',
+  bottom: '0.25rem',
+  left: '0.25rem',
+  right: '0.25rem',
+  padding: '2rem',
 
-    borderRadius: 6,
+  borderRadius: 6,
 
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
 
-    backgroundColor: '#202024',
+  backgroundColor: '#202024',
 
-    transform: 'translateY(110%)',
-    opacity: 0,
-    transition: 'all 0.2s ease-in-out',
+  transform: 'translateY(110%)',
+  opacity: 0,
+  transition: 'all 0.2s ease-in-out',
 
-    strong: {
-      fontSize: '$lg'
-    },
+  strong: {
+    fontSize: '$lg'
+  },
 
-    span: {
-      fontSize: '$xl',
-      fontWeight: 'bold',
-      color: '$green300'
-    },
+  span: {
+    fontSize: '$xl',
+    fontWeight: 'bold',
+    color: '$green300'
+  },
 });
 
 export const FooterLeft = styled('div', {

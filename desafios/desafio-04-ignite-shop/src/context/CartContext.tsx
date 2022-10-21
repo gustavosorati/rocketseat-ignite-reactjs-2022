@@ -5,6 +5,8 @@ export interface IProduct {
   name: string;
   imageUrl: string;
   price: string;
+
+  priceId: string;
 }
 
 interface ICart {
@@ -13,6 +15,8 @@ interface ICart {
   imageUrl: string;
   quantity: number;
   price: string;
+
+  priceId: string;
 }
 
 interface ICartContext {
@@ -55,10 +59,12 @@ export const CartProvider = ({children}: CartProvider) => {
   }
 
   const deleteProduct = (id: string) => {
-    const remainingProducts = productsList.filter(product => product.id === id);
+    const remainingProducts = productsList.filter(product => product.id !== id);
 
     setProductsList(remainingProducts);
   }
+
+  console.log(productsList)
 
   return (
     <CartContext.Provider value={{

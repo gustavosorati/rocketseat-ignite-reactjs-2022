@@ -8,7 +8,9 @@ export const Container = styled('div', {
   alignItems: 'flex-start',
   justifyContent: 'center',
   minHeight: '100vh',
-  padding: '3rem'
+
+  position: "relative",
+  overflow: "hidden",
 })
 
 export const Header = styled('header', {

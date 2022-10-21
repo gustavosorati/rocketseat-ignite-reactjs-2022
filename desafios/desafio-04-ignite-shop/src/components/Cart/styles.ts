@@ -1,21 +1,24 @@
 import { styled, keyframes } from "../../styles";
 
-const moveLeft = keyframes({
-  '100%': { right: '400px' },
+const toLeft = keyframes({
+  "0%": { right: '-480px' },
+  '100%': { right: '0' },
 })
 
-const moveRight = keyframes({
-  '100%': { right: '-400px' },
+const toRight = keyframes({
+  "0%": { right: '0' },
+  '100%': { right: '-480px' },
 })
 
 export const CartContainer = styled('div', {
+  overflow: "hidden",
   position: 'absolute',
   top: '0',
-  right: "0",
   padding: "48px",
 
   width: "480px",
-  height: "100vh",
+  minHeight: "100vh",
+  height: "100%",
   backgroundColor: "$gray800",
 
   "> strong": {
@@ -27,10 +30,14 @@ export const CartContainer = styled('div', {
   },
 
   transform: 'all 2s',
+
   variants: {
     isOpen: {
       'true': {
-        animation: `${moveLeft} 2s forwards`
+        animation: `${toLeft} 200ms forwards`
+      },
+      'false': {
+        animation: `${toRight} 200ms forwards`
       },
     }
   }
@@ -38,8 +45,8 @@ export const CartContainer = styled('div', {
 
 export const Content = styled('div', {
   display: 'flex',
-  flexDirection: "column",
-  gap: "24px",
+  flexDirection: 'column',
+  height: "90%",
 });
 
 export const Product = styled('div', {
@@ -124,5 +131,4 @@ export const BtnClose = styled("button", {
   right: "28px",
 
   cursor: "pointer"
-
 });

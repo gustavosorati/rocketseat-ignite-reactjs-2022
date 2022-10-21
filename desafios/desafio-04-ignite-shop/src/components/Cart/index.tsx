@@ -1,23 +1,41 @@
+import axios from "axios";
 import Image from "next/image";
 import { X } from "phosphor-react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../../context/CartContext";
 import { BtnClose, CartContainer, Content, Footer, Product } from "./styles";
 
-interface CartProps {
-  products: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: string;
-  }[]
-}
-
-export function Cart({products}: CartProps) {
-  const {changeStatusBag, bagIsOpen} = useContext(CartContext);
+export function Cart() {
+  const {productsList, changeStatusBag, bagIsOpen, deleteProduct} = useContext(CartContext);
+  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false);
 
   function handleOpenCart() {
     changeStatusBag();
+  }
+
+  function handleDeleteProduct(id: string) {
+    deleteProduct(id);
+  }
+
+  async function handleCheckout() {
+    try {
+      setIsCreatingCheckoutSession(true);
+
+      const bag = productsList.map(product => {
+        return {
+          price: product.priceId,
+          quantity: product.quantity
+        }
+      });
+
+      const response = await axios.post('/api/checkout', bag);
+
+      console.log(response)
+      window.location.href = response.data.checkoutUrl
+    } catch (err) {
+      setIsCreatingCheckoutSession(false);
+      console.log(err);
+    }
   }
 
   return (
@@ -29,7 +47,7 @@ export function Cart({products}: CartProps) {
       <strong>Sacola de Compras</strong>
 
       <Content>
-        {products.map(product => (
+        {productsList.map(product => (
           <Product key={product.id}>
             <div className="left">
               <Image src={product.imageUrl} width={101} height={93} alt="" />
@@ -38,23 +56,24 @@ export function Cart({products}: CartProps) {
             <div className="right">
               <strong>{product.name}</strong>
               <span>{product.price}</span>
-              <button>Remover</button>
+              <button onClick={() => handleDeleteProduct(product.id)}>Remover</button>
             </div>
           </Product>
         ))}
 
-          <Footer>
-            <div className="total">
-              <p>Quantidade</p>
-              <span>3 items</span>
-            </div>
-            <div className="total" style={{fontWeight: 'bold'}}>
-              <strong>Valor Total</strong>
-              <span>R$ 270,00</span>
-            </div>
+        <Footer>
+          <div className="total">
+            <p>Quantidade</p>
+            <span>3 items</span>
+          </div>
 
-            <button>Finalizar Compra</button>
-          </Footer>
+          <div className="total" style={{fontWeight: 'bold'}}>
+            <strong>Valor Total</strong>
+            <span>R$ 270,00</span>
+          </div>
+
+          <button onClick={handleCheckout}>Finalizar Compra</button>
+        </Footer>
       </Content>
     </CartContainer>
   )

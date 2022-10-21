@@ -1,6 +1,6 @@
 import type { GetStaticProps } from 'next'
 import Image from 'next/future/image'
-import { HomeContainer, Product, Footer, FooterLeft, SliderControl } from '../styles/pages/home'
+import { HomeContainer, Product, Footer, FooterLeft, SliderControl,  } from '../styles/pages/home'
 
 import {useKeenSlider} from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
@@ -13,6 +13,7 @@ import { BtnCart } from '../components/BtnCart'
 import { useContext, useState } from 'react'
 import { CartContext, IProduct } from '../context/CartContext'
 import { CaretRight } from 'phosphor-react'
+import { Cart } from '../components/Cart'
 
 interface HomeProps {
   products: {
@@ -20,6 +21,7 @@ interface HomeProps {
     name: string;
     imageUrl: string;
     price: string;
+    priceId: string;
   }[];
 }
 
@@ -32,9 +34,10 @@ export function Home({products}: HomeProps) {
   const [sliderRef, instanceRef] = useKeenSlider({
     initial: 0,
     mode: "free-snap",
-    drag: false,
+    drag: true,
     slides: {
-      origin: "center",
+      origin: currentSlide === 0 ? "auto" : "center",
+      // origin: "center",
       perView: 2,
       spacing: 48
     },
@@ -50,7 +53,6 @@ export function Home({products}: HomeProps) {
     addProduct(product);
   }
 
-
   return (
     <>
       <Head>
@@ -60,9 +62,7 @@ export function Home({products}: HomeProps) {
       <HomeContainer ref={sliderRef} className="keen-slider">
 
         {products.map((product, index) => {
-
           return (
-          <div className="teste" key={product.id}>
             <Product
               className='keen-slider__slide'
               key={product.id}
@@ -86,7 +86,6 @@ export function Home({products}: HomeProps) {
               </Footer>
 
             </Product>
-          </div>
         )})}
 
         {loaded && (
@@ -112,9 +111,7 @@ export function Home({products}: HomeProps) {
         )}
       </HomeContainer>
 
-
-
-      {/* <Cart products={products}  /> */}
+      <Cart />
     </>
   )
 }
@@ -127,6 +124,7 @@ export const getStaticProps: GetStaticProps = async () => {
   });
 
   const products = response.data.map(product => {
+
     const price = product.default_price as Stripe.Price
 
     return {
@@ -136,7 +134,11 @@ export const getStaticProps: GetStaticProps = async () => {
       price: Intl.NumberFormat('pt-br', {
         currency: 'BRL',
         style: 'currency'
-      }).format(price.unit_amount! / 100)
+      }).format(price.unit_amount! / 100),
+
+      // Recebe o id padrão do price, pois a finalização da compra irá ocorrer
+      // apenas durante o component Cart com os produtos que estão armazenados no contexto.
+      priceId: price.id
     }
   })
 

@@ -29,22 +29,16 @@ export default function Product({product}: ProductProps) {
     try {
       setIsCreatingCheckoutSession(true);
 
+      console.log(product.defaultPriceId)
+
       const response = await axios.post('/api/checkout', {
         priceId: product.defaultPriceId
       });
 
-      console.log(response)
       const { checkoutUrl } = response.data;
 
-      // Se eu estou redirecionando o usuario para uma página externa utiliza-se:
       window.location.href = checkoutUrl;
-
-      // Se eu estou redirecionando para um caminho da propria aplicação:
-      // router.push('/checkout')
-
-
     } catch (error) {
-      // O recomendado seria conectar com uma ferramente de observabilidade (Datadog / Sentry)
       console.log(error)
       alert('Falha ao redirecionar ao checkout');
       setIsCreatingCheckoutSession(false);
@@ -78,18 +72,7 @@ export default function Product({product}: ProductProps) {
   )
 }
 
-// Sempre que utilizarmos getStaticProps e ele dependender de um parâmetro
-// Iremos precisar gerar um getStaticPaths para passar esses parâmetros na build inicial
 export const getStaticPaths: GetStaticPaths = async () => {
-  // Buscar os produtos mais vendidos / mais acessados -> pois as páginas desses produtos já estaram
-  // disponiveis
-
-  // O resto dos produtos iria dar 404, mas para isso temos a opção fallback que quando false retorna 404, enquanto o true tentará criar a página caso o parametro ainda não tenha sido passado
-  // Contudo quando utilizamos true, o next monta a pagina sem os dados do produto, por debaixo dos panos ele tentará executar o getStaticProps.
-  // Por isso temos que capturar o estado da requisição e se necessário rodar um outro componente, enquanto o fetching não termina.
-  // A opção blocking - Não exibe nada em tela enquanto não for carregado os dados, sendo uma experiência pior
-
-
   return {
     paths: [
       {
@@ -105,7 +88,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({param
 
   const product = await stripe.products.retrieve(productId, {
     expand: ['default_price']
-  })
+  });
 
   const price = product.default_price as Stripe.Price
 

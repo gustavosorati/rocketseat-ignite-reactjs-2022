@@ -5,8 +5,7 @@ export interface IProduct {
   name: string;
   imageUrl: string;
   price: string;
-
-  priceId: string;
+  defaultPriceId: string;
 }
 
 interface ICart {
@@ -15,20 +14,18 @@ interface ICart {
   imageUrl: string;
   quantity: number;
   price: string;
-
-  priceId: string;
+  defaultPriceId: string;
 }
 
 interface ICartContext {
   productsList: ICart[];
   bagIsOpen: boolean;
-  addProduct: (product: IProduct) => void;
-  deleteProduct: (id: string) => void;
+  addProduct: (product: IProduct) => Promise<void>;
+  deleteProduct: (id: string) => Promise<void>;
   changeStatusBag: () => Promise<void>;
 }
 
 export const  CartContext = createContext<ICartContext>({} as ICartContext);
-
 
 interface CartProvider {
   children: ReactNode;
@@ -42,7 +39,8 @@ export const CartProvider = ({children}: CartProvider) => {
     setBagIsOpen(!bagIsOpen);
   }
 
-  const addProduct = (data: IProduct) => {
+  console.log(bagIsOpen)
+  const addProduct = async (data: IProduct) => {
     const productsExist = productsList.find(prod => prod.id === data.id);
 
     if(productsExist) {
@@ -58,13 +56,11 @@ export const CartProvider = ({children}: CartProvider) => {
     }
   }
 
-  const deleteProduct = (id: string) => {
+  const deleteProduct = async (id: string) => {
     const remainingProducts = productsList.filter(product => product.id !== id);
 
     setProductsList(remainingProducts);
   }
-
-  console.log(productsList)
 
   return (
     <CartContext.Provider value={{

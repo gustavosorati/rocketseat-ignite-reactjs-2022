@@ -13,8 +13,8 @@ export function Cart() {
     changeStatusBag();
   }
 
-  function handleDeleteProduct(id: string) {
-    deleteProduct(id);
+  async function handleDeleteProduct(id: string) {
+    await deleteProduct(id);
   }
 
   async function handleCheckout() {
@@ -23,18 +23,18 @@ export function Cart() {
 
       const bag = productsList.map(product => {
         return {
-          price: product.priceId,
+          price: product.defaultPriceId,
           quantity: product.quantity
         }
       });
 
       const response = await axios.post('/api/checkout', bag);
 
-      console.log(response)
-      window.location.href = response.data.checkoutUrl
-    } catch (err) {
+      window.location.href = response.data.checkoutUrl;
+    } catch (error) {
+      console.log(error)
       setIsCreatingCheckoutSession(false);
-      console.log(err);
+      alert('Falha ao redirecionar ao checkout');
     }
   }
 
@@ -56,7 +56,9 @@ export function Cart() {
             <div className="right">
               <strong>{product.name}</strong>
               <span>{product.price}</span>
-              <button onClick={() => handleDeleteProduct(product.id)}>Remover</button>
+              <button onClick={() => handleDeleteProduct(product.id)} disabled={isCreatingCheckoutSession}>
+                Remover
+              </button>
             </div>
           </Product>
         ))}

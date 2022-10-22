@@ -1,3 +1,4 @@
+import { Cart } from "../Cart";
 import { Header } from "../Header";
 import { LayoutContainer } from "./styles";
 
@@ -7,6 +8,8 @@ export function Layout({ children }) {
     <LayoutContainer>
       <Header />
       {children}
+
+      <Cart />
     </LayoutContainer>
   )
 }

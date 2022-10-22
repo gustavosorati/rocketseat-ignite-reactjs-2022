@@ -13,13 +13,7 @@ import { stripe } from '../lib/stripe'
 import { Footer, FooterLeft, HomeContainer, Product, SliderControl } from '../styles/pages/home'
 
 interface HomeProps {
-  products: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: string;
-    defaultPriceId: string;
-  }[];
+  products: IProduct[];
 }
 
 export function Home({products}: HomeProps) {

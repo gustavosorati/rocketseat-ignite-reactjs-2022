@@ -7,21 +7,31 @@ type IBtnCart = ButtonHTMLAttributes<HTMLButtonElement> & {
   typeButton: "cart" | "button"
 }
 
-export function BtnCart({typeButton, ...props}: IBtnCart) {
-  const { productsList } = useContext(CartContext);
+export function ShoppingButton({typeButton, ...props}: IBtnCart) {
+  const { productsList, changeStatusBag } = useContext(CartContext);
 
-  return (
-    <BtnCartContainer typeButton={typeButton} {...props}>
-      {typeButton === "cart" ? (
+  function handleOpenBag() {
+    changeStatusBag();
+  }
+
+  if(typeButton === "cart") {
+    return (
+      <BtnCartContainer typeButton="cart" {...props} onClick={handleOpenBag}>
         <Wrapper>
           {productsList.length > 0 && <span>{productsList.length}</span>}
           <Handbag weight='bold' size={24} color={"#8D8D99"} />
         </Wrapper>
-      ) : (
+      </BtnCartContainer>
+    )
+  }
+
+  if(typeButton === "button") {
+    return (
+      <BtnCartContainer typeButton="button" {...props}>
         <Wrapper>
           <Handbag weight='bold' size={24} color={"#8D8D99"} />
         </Wrapper>
-      )}
-    </BtnCartContainer>
-  )
+      </BtnCartContainer>
+    )
+  }
 }

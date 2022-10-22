@@ -20,7 +20,6 @@ export const CartContainer = styled('div', {
   minHeight: "100vh",
   height: "100%",
   backgroundColor: "$gray800",
-  opacity: 0,
 
   "> strong": {
     display: "block",
@@ -40,6 +39,9 @@ export const CartContainer = styled('div', {
       },
       'false': {
         animation: `${toRight} 200ms forwards`,
+        opacity: 0,
+
+        transition: "opacity 500ms"
       },
     }
   }

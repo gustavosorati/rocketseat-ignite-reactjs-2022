@@ -6,7 +6,6 @@ const toLeft = keyframes({
   "100%": { transform: 'translateX(0)'},
 })
 
-
 export const ProductContainer = styled('main', {
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',
@@ -14,7 +13,9 @@ export const ProductContainer = styled('main', {
   gap: '4rem',
 
   maxWidth: 1180,
-  margin: '0 auto'
+  margin: '0 auto',
+
+  position: 'relative'
 });
 
 export const ImageContainer = styled('div', {

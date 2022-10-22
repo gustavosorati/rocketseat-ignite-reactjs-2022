@@ -1,19 +1,17 @@
+import 'keen-slider/keen-slider.min.css'
+import { useKeenSlider } from 'keen-slider/react'
 import type { GetStaticProps } from 'next'
 import Image from 'next/future/image'
-import { HomeContainer, Product, Footer, FooterLeft, SliderControl,  } from '../styles/pages/home'
-
-import {useKeenSlider} from 'keen-slider/react'
-import 'keen-slider/keen-slider.min.css'
-
-import { stripe } from '../lib/stripe'
-import Stripe from 'stripe'
-import Link from 'next/link'
 import Head from 'next/head'
-import { BtnCart } from '../components/BtnCart'
-import { useContext, useState } from 'react'
-import { CartContext, IProduct } from '../context/CartContext'
+import Link from 'next/link'
 import { CaretRight } from 'phosphor-react'
+import { useContext, useState } from 'react'
+import Stripe from 'stripe'
+import { BtnCart } from '../components/BtnCart'
 import { Cart } from '../components/Cart'
+import { CartContext, IProduct } from '../context/CartContext'
+import { stripe } from '../lib/stripe'
+import { Footer, FooterLeft, HomeContainer, Product, SliderControl } from '../styles/pages/home'
 
 interface HomeProps {
   products: {

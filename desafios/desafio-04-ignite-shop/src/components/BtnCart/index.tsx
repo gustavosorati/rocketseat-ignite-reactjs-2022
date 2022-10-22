@@ -10,7 +10,6 @@ type IBtnCart = ButtonHTMLAttributes<HTMLButtonElement> & {
 export function BtnCart({typeButton, ...props}: IBtnCart) {
   const { productsList } = useContext(CartContext);
 
-
   return (
     <BtnCartContainer typeButton={typeButton} {...props}>
       {typeButton === "cart" ? (

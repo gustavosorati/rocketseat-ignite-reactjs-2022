@@ -1,4 +1,11 @@
-import { styled } from "@stitches/react";
+import { keyframes, styled } from "@stitches/react";
+
+
+const toLeft = keyframes({
+  "0%": { transform: 'translateX(400px)'},
+  "100%": { transform: 'translateX(0)'},
+})
+
 
 export const ProductContainer = styled('main', {
   display: 'grid',
@@ -21,6 +28,8 @@ export const ImageContainer = styled('div', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+
+  animation: `${toLeft} 600ms forwards`,
 
   img: {
     objectFit: 'cover',

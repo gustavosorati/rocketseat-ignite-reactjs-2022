@@ -1,10 +1,10 @@
-import type { AppProps } from 'next/app'
+import type { AppProps } from 'next/app';
 
-import { globalStyles } from '../styles/global'
+import { globalStyles } from '../styles/global';
 
-import { Container } from '../styles/pages/app';
-import { CartProvider } from '../context/CartContext';
 import { HeaderComponent } from '../components/HeaderComponent';
+import { CartProvider } from '../context/CartContext';
+import { Container } from '../styles/pages/app';
 
 globalStyles();
 

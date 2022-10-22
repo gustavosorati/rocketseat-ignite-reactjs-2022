@@ -7,8 +7,7 @@ import Link from 'next/link'
 import { CaretRight } from 'phosphor-react'
 import { useContext, useState } from 'react'
 import Stripe from 'stripe'
-import { BtnCart } from '../components/BtnCart'
-import { Cart } from '../components/Cart'
+import { ShoppingButton } from '../components/ShoppingButton'
 import { CartContext, IProduct } from '../context/CartContext'
 import { stripe } from '../lib/stripe'
 import { Footer, FooterLeft, HomeContainer, Product, SliderControl } from '../styles/pages/home'
@@ -19,7 +18,7 @@ interface HomeProps {
     name: string;
     imageUrl: string;
     price: string;
-    priceId: string;
+    defaultPriceId: string;
   }[];
 }
 
@@ -47,8 +46,8 @@ export function Home({products}: HomeProps) {
     },
   });
 
-  function handleAddProductToCart(product: IProduct) {
-    addProduct(product);
+  async function handleAddProductToCart(product: IProduct) {
+    await addProduct(product);
   }
 
   return (
@@ -77,7 +76,7 @@ export function Home({products}: HomeProps) {
                   <span>{product.price}</span>
                 </FooterLeft>
 
-                <BtnCart
+                <ShoppingButton
                   typeButton="button"
                   onClick={() => handleAddProductToCart(product)}
                 />
@@ -86,30 +85,29 @@ export function Home({products}: HomeProps) {
             </Product>
         )})}
 
+        {/* Arrows to control slide */}
         {loaded && (
           <>
             <SliderControl
-            disabled={currentSlide === instanceRef.current.track.details.slides.length - 1}
-            left={false}
+              disabled={currentSlide === instanceRef.current.track.details.slides.length - 1}
+              left={false}
             >
-              <button onClick={(e: any) => {
-                e.stopPropagation() || instanceRef.current?.next()
-              }}> <CaretRight size={48} weight={'regular'} color={"#c4c4cc"}/> </button>
+              <button onClick={(e: any) => {e.stopPropagation() || instanceRef.current?.next()}}>
+                <CaretRight size={48} weight={'regular'} color={"#c4c4cc"}/>
+              </button>
             </SliderControl>
 
             <SliderControl
-            disabled={currentSlide === 0}
-            left={true}
+              disabled={currentSlide === 0}
+              left={true}
             >
-              <button onClick={(e: any) => {
-                e.stopPropagation() || instanceRef.current?.prev()
-              }}> <CaretRight size={48} weight={'regular'} color={"#c4c4cc"} /> </button>
+              <button onClick={(e: any) => {e.stopPropagation() || instanceRef.current?.prev()}}>
+                <CaretRight size={48} weight={'regular'} color={"#c4c4cc"} />
+              </button>
             </SliderControl>
           </>
         )}
       </HomeContainer>
-
-      <Cart />
     </>
   )
 }
@@ -117,12 +115,14 @@ export function Home({products}: HomeProps) {
 export default Home;
 
 export const getStaticProps: GetStaticProps = async () => {
+  // Fetch dos produtos, expandindo e buscando informações das informações de pagamento
   const response = await stripe.products.list({
     expand: ['data.default_price']
   });
 
   const products = response.data.map(product => {
 
+    // Tipagem
     const price = product.default_price as Stripe.Price
 
     return {
@@ -136,7 +136,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
       // Recebe o id padrão do price, pois a finalização da compra irá ocorrer
       // apenas durante o component Cart com os produtos que estão armazenados no contexto.
-      priceId: price.id
+      defaultPriceId: price.id
     }
   })
 

@@ -12,10 +12,12 @@ export default function Document() {
         {/* Para o CSS funcionar quando estivermos utilizando SSR */}
         <style id="stitches" dangerouslySetInnerHTML={{ __html: getCssText() }} />
       </Head>
+
       <body>
         <Main />
         <NextScript />
       </body>
+
     </Html>
   )
 }

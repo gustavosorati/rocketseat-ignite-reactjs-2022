@@ -1,13 +1,8 @@
-import { styled, keyframes } from "..";
+import { keyframes, styled } from "..";
 
 export const HomeContainer = styled('main', {
   display: 'flex',
-  // gap: '3rem', keen-slider se perde no gap
-
-  // width: '100%',
-  // maxWidth: '1180px',
   maxWidth: '1360px',
-  // marginLeft: 'auto',
   margin: '0 auto',
   minHeight: 656,
 });
@@ -45,7 +40,6 @@ export const Product = styled('div', {
   justifyContent: 'center',
   maxWidth: 696,
 
-
   img: {
     objectFit: 'cover'
   },
@@ -64,8 +58,6 @@ export const Product = styled('div', {
       }
     }
   }
-
-
 });
 
 export const Footer = styled('footer', {
@@ -102,7 +94,6 @@ export const FooterLeft = styled('div', {
   display: "flex",
   flexDirection: "column",
   gap: "4px",
-
 
   strong: {
     fontSize: '$lg',

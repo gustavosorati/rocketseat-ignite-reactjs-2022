@@ -1,5 +1,6 @@
 import { keyframes, styled } from "../../styles";
 
+// animations
 const toLeft = keyframes({
   "0%": { right: '-480px' },
   '100%': { right: '0' },
@@ -16,18 +17,14 @@ export const CartContainer = styled('div', {
   top: '0',
   padding: "48px",
 
+  display: "flex",
+  flexDirection: "column",
+
+  background: "red",
+
   width: "480px",
   minHeight: "100vh",
-  height: "100%",
   backgroundColor: "$gray800",
-
-  "> strong": {
-    display: "block",
-    marginTop: "28px",
-    marginBottom: "32px",
-    color: "$gray100",
-    fontSize: "$lg",
-  },
 
   transform: 'all 2s',
 
@@ -44,60 +41,71 @@ export const CartContainer = styled('div', {
         transition: "opacity 500ms"
       },
     }
-  }
+  },
+
+  "> strong": {
+    display: 'flex',
+    marginTop: "28px",
+    marginBottom: "32px",
+    color: "$gray100",
+    fontSize: "$lg",
+  },
 });
 
 export const Content = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  height: "90%",
+
+  minHeight: "calc(100vh - 260px)",
+  background: "red"
 });
 
 export const Product = styled('div', {
   display: "flex",
   gap: "20px",
+  marginBottom: "16px",
 
   ".left": {
     background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
     borderRadius: 8,
-    minWidth: "100px",
-    maxHeight: "93px"
+    height: "93px"
   },
 
   ".right": {
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
-    padding: "3px"
-  },
+    padding: "3px",
 
-  ".right strong": {
-    fontSize: "$md",
-    fontWeight: "400",
-    color: "$gray300"
-  },
+    "strong": {
+      fontSize: "$md",
+      fontWeight: "400",
+      color: "$gray300"
+    },
 
-  ".right span": {
-    marginTop: "5px",
-    fontSize: "$md",
-    fontWeight: "700",
-    color: "$gray100"
-  },
+    "span": {
+      marginTop: "5px",
+      fontSize: "$md",
+      fontWeight: "700",
+      color: "$gray100"
+    },
 
-  ".right button": {
-    marginTop: "auto",
-    background: "transparent",
-    border: "none",
-    color: "$green500",
-    fontWeight: 700,
-    fontSize: "$md",
+    "button": {
+      marginTop: "auto",
+      background: "transparent",
+      border: "none",
+      color: "$green500",
+      fontWeight: 700,
+      fontSize: "$md",
 
-    cursor: "pointer"
+      cursor: "pointer"
+    },
   },
 });
 
 export const Footer = styled("footer", {
-  marginTop: "100%",
+  alignContent: "flex-end",
+  justifyItems: "flex-end",
 
   ".total": {
     display: "flex",

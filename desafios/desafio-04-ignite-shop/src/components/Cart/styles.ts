@@ -1,4 +1,4 @@
-import { styled, keyframes } from "../../styles";
+import { keyframes, styled } from "../../styles";
 
 const toLeft = keyframes({
   "0%": { right: '-480px' },
@@ -20,6 +20,7 @@ export const CartContainer = styled('div', {
   minHeight: "100vh",
   height: "100%",
   backgroundColor: "$gray800",
+  opacity: 0,
 
   "> strong": {
     display: "block",
@@ -34,10 +35,11 @@ export const CartContainer = styled('div', {
   variants: {
     isOpen: {
       'true': {
-        animation: `${toLeft} 200ms forwards`
+        animation: `${toLeft} 200ms forwards`,
+        opacity: 1
       },
       'false': {
-        animation: `${toRight} 200ms forwards`
+        animation: `${toRight} 200ms forwards`,
       },
     }
   }

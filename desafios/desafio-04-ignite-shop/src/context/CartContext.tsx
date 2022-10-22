@@ -8,17 +8,12 @@ export interface IProduct {
   defaultPriceId: string;
 }
 
-interface ICart {
-  id: string;
-  name: string;
-  imageUrl: string;
+interface CartProps extends IProduct {
   quantity: number;
-  price: string;
-  defaultPriceId: string;
 }
 
 interface ICartContext {
-  productsList: ICart[];
+  productsList: CartProps[];
   bagIsOpen: boolean;
   addProduct: (product: IProduct) => Promise<void>;
   deleteProduct: (id: string) => Promise<void>;
@@ -33,13 +28,12 @@ interface CartProvider {
 
 export const CartProvider = ({children}: CartProvider) => {
   const [bagIsOpen, setBagIsOpen] = useState(false);
-  const [productsList, setProductsList] = useState<ICart[]>([]);
+  const [productsList, setProductsList] = useState<CartProps[]>([]);
 
   async function changeStatusBag() {
     setBagIsOpen(!bagIsOpen);
   }
 
-  console.log(bagIsOpen)
   const addProduct = async (data: IProduct) => {
     const productsExist = productsList.find(prod => prod.id === data.id);
 

@@ -6,6 +6,7 @@
 
 Nesse desafio, foi implementado um carrinho de compras ao projeto, com a opção de adicionar e remover os itens antes de prosseguir ao checkout na api do Stripe.
 
+Layout: [Figma - Ignite Shop](https://www.figma.com/file/pPrrbxlOSaCnfh3dCgh1mE/Desafio-4-Ignite-2022---Shop-2.0?node-id=0%3A1)
 
 
 ## Instalação

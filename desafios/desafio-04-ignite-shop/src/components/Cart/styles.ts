@@ -13,14 +13,12 @@ const toRight = keyframes({
 
 export const CartContainer = styled('div', {
   overflow: "hidden",
-  position: 'absolute',
+  position: 'fixed',
   top: '0',
-  padding: "48px",
 
   display: "flex",
   flexDirection: "column",
-
-  background: "red",
+  padding: '40px',
 
   width: "480px",
   minHeight: "100vh",
@@ -53,11 +51,9 @@ export const CartContainer = styled('div', {
 });
 
 export const Content = styled('div', {
+  flex: 2,
   display: 'flex',
   flexDirection: 'column',
-
-  minHeight: "calc(100vh - 260px)",
-  background: "red"
 });
 
 export const Product = styled('div', {

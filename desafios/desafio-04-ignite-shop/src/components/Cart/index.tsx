@@ -38,6 +38,19 @@ export function Cart() {
     }
   }
 
+  const quantityProducts = productsList.length;
+
+  const total = Intl.NumberFormat("pt-br", {
+      style: "currency",
+      currency: "BRL"
+    }).format(productsList.reduce((acc, cur) => {
+        let priceNumber = Number(cur.price.split("R$")[1].replace(",", "."));
+
+        acc += priceNumber * cur.quantity
+
+        return acc;
+      }, 0))
+
   return (
     <CartContainer isOpen={bagIsOpen}>
       <BtnClose onClick={handleOpenCart}>
@@ -62,21 +75,21 @@ export function Cart() {
             </div>
           </Product>
         ))}
-
-        <Footer>
-          <div className="total">
-            <p>Quantidade</p>
-            <span>3 items</span>
-          </div>
-
-          <div className="total" style={{fontWeight: 'bold'}}>
-            <strong>Valor Total</strong>
-            <span>R$ 270,00</span>
-          </div>
-
-          <button onClick={handleCheckout}>Finalizar Compra</button>
-        </Footer>
       </Content>
+
+      <Footer>
+        <div className="total">
+          <p>Quantidade</p>
+          <span>{quantityProducts} items</span>
+        </div>
+
+        <div className="total" style={{fontWeight: 'bold'}}>
+          <strong>Valor Total</strong>
+          <span>{total}</span>
+        </div>
+
+        <button onClick={handleCheckout}>Finalizar Compra</button>
+      </Footer>
     </CartContainer>
   )
 }

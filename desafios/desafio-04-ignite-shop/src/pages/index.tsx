@@ -4,10 +4,12 @@ import type { GetStaticProps } from 'next'
 import Image from 'next/future/image'
 import Head from 'next/head'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { CaretRight } from 'phosphor-react'
 import { useContext, useState } from 'react'
 import Stripe from 'stripe'
 import { ShoppingButton } from '../components/ShoppingButton'
+import { Skeleton } from '../components/Skeleton'
 import { CartContext, IProduct } from '../context/CartContext'
 import { stripe } from '../lib/stripe'
 import { Footer, FooterLeft, HomeContainer, Product, SliderControl } from '../styles/pages/home'
@@ -18,6 +20,7 @@ interface HomeProps {
 
 export function Home({products}: HomeProps) {
   const {addProduct} = useContext(CartContext);
+  const {isFallback} = useRouter();
 
   // slider
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -54,29 +57,42 @@ export function Home({products}: HomeProps) {
 
         {products.map((product, index) => {
           return (
-            <Product
-              className='keen-slider__slide'
-              key={product.id}
-              isVisible={currentSlide === index}
-            >
-
-              <Link href={`/product/${product.id}`}  prefetch={false}>
-                <Image src={product.imageUrl} width={520} height={480} alt="" />
-              </Link>
-
-              <Footer>
-                <FooterLeft>
-                  <strong>{product.name}</strong>
-                  <span>{product.price}</span>
-                </FooterLeft>
-
-                <ShoppingButton
-                  typeButton="button"
-                  onClick={() => handleAddProductToCart(product)}
+            <div key={index}>
+              {isFallback ? (
+                <Skeleton
+                  className="keen-slider__slide"
+                  key={index}
+                  w={656} h={656}
                 />
-              </Footer>
+              ) : (
+                <Product
+                  className='keen-slider__slide'
+                  key={product.id}
+                  isVisible={currentSlide === index}
+                >
+                  <Link href={`/product/${product.id}`}  prefetch={false}>
+                    <Image src={product.imageUrl} width={520} height={480} alt="" />
+                  </Link>
 
-            </Product>
+                  <Footer>
+                    <FooterLeft>
+                      <strong>{product.name}</strong>
+                      <span>{product.price}</span>
+                    </FooterLeft>
+
+                    <ShoppingButton
+                      typeButton="button"
+                      onClick={() => handleAddProductToCart(product)}
+                    />
+                  </Footer>
+                </Product>
+              )}
+
+
+            </div>
+
+
+
         )})}
 
         {/* Arrows to control slide */}

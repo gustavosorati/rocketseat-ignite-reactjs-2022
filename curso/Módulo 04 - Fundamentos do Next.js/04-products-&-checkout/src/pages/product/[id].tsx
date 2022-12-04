@@ -28,16 +28,18 @@ export default function Product({product}: ProductProps) {
   async function handleBuyProduct() {
     try {
       setIsCreatingCheckoutSession(true);
+      console.log(product.id);
+      console.log(product.defaultPriceId)
 
-      const response = await axios.post('/api/checkout', {
-        priceId: product.defaultPriceId
-      });
+      // const response = await axios.post('/api/checkout', {
+      //   priceId: product.defaultPriceId
+      // });
 
-      console.log(response)
-      const { checkoutUrl } = response.data;
+      // console.log(response)
+      // const { checkoutUrl } = response.data;
 
-      // Se eu estou redirecionando o usuario para uma página externa utiliza-se:
-      window.location.href = checkoutUrl;
+      // // Se eu estou redirecionando o usuario para uma página externa utiliza-se:
+      // window.location.href = checkoutUrl;
 
       // Se eu estou redirecionando para um caminho da propria aplicação:
       // router.push('/checkout')

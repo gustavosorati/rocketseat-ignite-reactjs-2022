@@ -41,7 +41,10 @@ export default function Success({customerName, product }: SucceessProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ( { query }) => {
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  console.log(query)
+
+
   if(!query.session_id) {
     return {
       // notFound: true -> retorna um erro 404
